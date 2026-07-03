@@ -493,27 +493,33 @@
     msg += `Aguardo o contato, obrigado(a)!`;
 
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySnKG6wxEU0s8K3sCiQRFogHs9tvC0d9kGSBfkoyLKwVOYZT6xwO7a-KCVednBa4E/exec';
-    fetch(SHEETS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({
-        nome: nome.value.trim(),
-        whatsapp: whatsapp.value.trim(),
-        destino: destino.value.trim(),
-        dataIda: formatarData(dataIda),
-        dataVolta: formatarData(dataVolta),
-        datasFlexiveis: flexiveis,
-        adultos: estado.adultos,
-        criancas: estado.criancas,
-        bagagem: bagagem,
-        quartos: estado.quartos,
-        tipoCama: cama,
-        orcamento: orcamento,
-        necessidades: necessidades.join(', '),
-        observacoes: observacoes
-      })
-    }).catch(() => {});
+    const payload = JSON.stringify({
+      nome: nome.value.trim(),
+      whatsapp: whatsapp.value.trim(),
+      destino: destino.value.trim(),
+      dataIda: formatarData(dataIda),
+      dataVolta: formatarData(dataVolta),
+      datasFlexiveis: flexiveis,
+      adultos: estado.adultos,
+      criancas: estado.criancas,
+      bagagem: bagagem,
+      quartos: estado.quartos,
+      tipoCama: cama,
+      orcamento: orcamento,
+      necessidades: necessidades.join(', '),
+      observacoes: observacoes
+    });
+    // sendBeacon garante que o envio chega mesmo se o usuário sair da página logo em seguida
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(SHEETS_URL, new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch(SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: payload
+      }).catch(() => {});
+    }
 
     const url = `https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
