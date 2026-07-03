@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARP Travel — Solicitar Orçamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --laranja:#FC4C01;
+    --verde-escuro:#1F5540;
+    --verde-profundo:#00391C;
+    --verde-medio:#2F5D43;
+    --branco:#FFFFFF;
+    --preto:#1A1A1A;
+    --cinza-borda:#E3E3E0;
+    --cinza-texto:#6B6B68;
+    --bg:#F4F2EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Poppins',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--preto);
+    padding:0 0 60px;
+  }
+  .topo{
+    background:var(--verde-escuro);
+    padding:36px 24px 44px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .logo-pill{
+    display:inline-block;
+    background:var(--verde-profundo);
+    color:var(--branco);
+    font-weight:800;
+    letter-spacing:3px;
+    font-size:13px;
+    padding:8px 18px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.25);
+  }
+  .logo-sub{
+    color:#bcd6c8;
+    font-size:10px;
+    letter-spacing:4px;
+    margin-top:6px;
+    font-weight:600;
+  }
+  .titulo{
+    color:var(--branco);
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:22px 0 8px;
+  }
+  .subtitulo{
+    color:#d9ead9;
+    font-style:italic;
+    font-size:14px;
+    font-weight:400;
+    margin:0;
+  }
+  .card{
+    max-width:620px;
+    margin:-24px auto 0;
+    background:var(--branco);
+    border-radius:20px;
+    padding:28px 24px 32px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+  .secao{
+    margin-bottom:26px;
+  }
+  .secao:last-child{margin-bottom:0;}
+  .secao-titulo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--verde-profundo);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  label.campo-label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--preto);
+    margin-bottom:6px;
+  }
+  input[type=text], input[type=tel], input[type=date], textarea{
+    width:100%;
+    border:1.5px solid var(--cinza-borda);
+    border-radius:12px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:14px;
+    color:var(--preto);
+    background:var(--branco);
+    outline:none;
+    transition:border-color .15s;
+  }
+  input:focus, textarea:focus{
+    border-color:var(--laranja);
+  }
+  input.erro, textarea.erro, .cama-grid.erro .opcao{
+    border-color:var(--laranja) !important;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media(max-width:480px){ .grid2{grid-template-columns:1fr;} }
+  .flex-check{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:12px;
+    font-size:13px;
+    color:var(--cinza-texto);
+    cursor:pointer;
+  }
+  .flex-check input{width:auto;margin-top:2px;accent-color:var(--laranja);}
+  .stepper-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid var(--cinza-borda);
+  }
+  .stepper-row:last-child{border-bottom:none;}
+  .stepper-label{
+    font-size:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .stepper{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .stepper button{
+    width:30px;height:30px;
+    border-radius:50%;
+    border:1.5px solid var(--cinza-borda);
+    background:var(--branco);
+    font-size:16px;
+    font-weight:700;
+    color:var(--verde-profundo);
+    cursor:pointer;
+    line-height:1;
+  }
+  .stepper button:hover{border-color:var(--laranja);color:var(--laranja);}
+  .stepper span{
+    min-width:16px;
+    text-align:center;
+    font-weight:700;
+    color:var(--verde-profundo);
+  }
+  .opcoes-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .opcao{
+    border:1.5px solid var(--cinza-borda);
+    border-radius:12px;
+    padding:12px;
+    text-align:center;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:600;
+    color:var(--preto);
+    transition:all .15s;
+  }
+  .opcao .emoji{display:block;font-size:20px;margin-bottom:4px;}
+  .opcao small{display:block;font-weight:400;color:var(--cinza-texto);font-size:11px;}
+  .opcao.selecionada{
+    border-color:var(--laranja);
+    background:#FFF4EE;
+    color:var(--verde-profundo);
+  }
+  .slider-wrap{margin-top:6px;}
+  .slider-valor{
+    text-align:center;
+    font-size:26px;
+    font-weight:800;
+    color:var(--verde-profundo);
+    margin-bottom:10px;
+  }
+  .slider-valor span{color:var(--laranja);}
+  input[type=range]{
+    width:100%;
+    accent-color:var(--laranja);
+    height:4px;
+  }
+  .slider-marcas{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:var(--cinza-texto);
+    margin-top:6px;
+  }
+  .chips-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .chip{
+    border:1.5px solid var(--cinza-borda);
+    border-radius:12px;
+    padding:12px 14px;
+    font-size:13px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .chip.selecionada{
+    border-color:var(--verde-escuro);
+    background:#EAF3EE;
+    color:var(--verde-profundo);
+  }
+  textarea{resize:vertical;min-height:80px;font-family:inherit;}
+  .btn-enviar{
+    width:100%;
+    margin-top:28px;
+    background:var(--laranja);
+    color:var(--branco);
+    border:none;
+    border-radius:14px;
+    padding:16px;
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(252,76,1,.35);
+    transition:transform .1s;
+  }
+  .btn-enviar:hover{transform:translateY(-1px);}
+  .aviso{
+    max-width:620px;
+    margin:16px auto 0;
+    text-align:center;
+    font-size:11px;
+    font-style:italic;
+    color:var(--cinza-texto);
+    padding:0 24px;
+  }
+  .rodape{
+    max-width:620px;
+    margin:18px auto 0;
+    text-align:center;
+    font-size:12px;
+    color:var(--verde-profundo);
+    font-weight:600;
+    padding:0 24px;
+  }
+  .campo-erro-msg{
+    color:var(--laranja);
+    font-size:11px;
+    margin-top:4px;
+    display:none;
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <span class="logo-pill">ARPTRAVEL</span>
+  <div class="logo-sub">VIAGENS</div>
+  <div class="titulo">SOLICITAR ORÇAMENTO</div>
+  <p class="subtitulo">Preencha abaixo e receba sua proposta personalizada ✈️</p>
+</div>
+
+<form class="card" id="formOrcamento">
+
+  <div class="secao">
+    <div class="secao-titulo">👤 Seus Dados</div>
+    <div class="grid2">
+      <div>
+        <label class="campo-label">Nome completo *</label>
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </div>
+      <div>
+        <label class="campo-label">WhatsApp *</label>
+        <input type="tel" id="whatsapp" placeholder="(00) 90000-0000" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">🌍 Destino</div>
+    <label class="campo-label">Para onde você quer ir? *</label>
+    <input type="text" id="destino" placeholder="Digite o destino (ex: Paris, Cancún, Gramado...)" required>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">📅 Datas da Viagem</div>
+    <div class="grid2">
+      <div>
+        <label class="campo-label">Data de ida *</label>
+        <input type="date" id="dataIda" required>
+      </div>
+      <div>
+        <label class="campo-label">Data de volta *</label>
+        <input type="date" id="dataVolta" required>
+      </div>
+    </div>
+    <label class="flex-check">
+      <input type="checkbox" id="datasFlexiveis">
+      Datas flexíveis — posso viajar em outras datas se o preço for melhor
+    </label>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">👥 Passageiros</div>
+    <div class="stepper-row">
+      <div class="stepper-label">✈️ Adultos</div>
+      <div class="stepper">
+        <button type="button" onclick="alterar('adultos',-1)">−</button>
+        <span id="adultos">2</span>
+        <button type="button" onclick="alterar('adultos',1)">+</button>
+      </div>
+    </div>
+    <div class="stepper-row">
+      <div class="stepper-label">🧒 Crianças</div>
+      <div class="stepper">
+        <button type="button" onclick="alterar('criancas',-1)">−</button>
+        <span id="criancas">0</span>
+        <button type="button" onclick="alterar('criancas',1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">🧳 Bagagem Despachada</div>
+    <div class="opcoes-grid" id="bagagemGrid">
+      <div class="opcao" data-valor="Só hand bag" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🎒</span>Só hand bag</div>
+      <div class="opcao selecionada" data-valor="1 mala (23kg)" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳</span>1 mala<small>(23kg)</small></div>
+      <div class="opcao" data-valor="2 malas" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳🧳</span>2 malas</div>
+      <div class="opcao" data-valor="Não sei" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🤔</span>Não sei</div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">🏨 Acomodação</div>
+    <div class="stepper-row">
+      <div class="stepper-label">🚪 Quartos</div>
+      <div class="stepper">
+        <button type="button" onclick="alterar('quartos',-1)">−</button>
+        <span id="quartos">1</span>
+        <button type="button" onclick="alterar('quartos',1)">+</button>
+      </div>
+    </div>
+    <label class="campo-label" style="margin-top:12px;">Tipo de cama preferida *</label>
+    <div class="opcoes-grid" id="camaGrid">
+      <div class="opcao selecionada" data-valor="Casal (1 cama de casal)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛏</span>Casal<small>1 cama de casal</small></div>
+      <div class="opcao" data-valor="Twin (2 camas de solteiro)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛏🛏</span>Twin<small>2 camas solteiro</small></div>
+      <div class="opcao" data-valor="Triplo (cama casal + solteiro)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛌</span>Triplo<small>Cama casal + solteiro</small></div>
+      <div class="opcao" data-valor="Sem preferência" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">💤</span>Sem preferência<small>O melhor disponível</small></div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">💰 Orçamento Disponível</div>
+    <div class="slider-wrap">
+      <div class="slider-valor">R$ <span id="orcamentoValor">5.000</span></div>
+      <input type="range" id="orcamentoSlider" min="1000" max="51000" step="1000" value="5000" oninput="atualizarOrcamento(this.value)">
+      <div class="slider-marcas">
+        <span>R$ 1.000</span><span>R$ 10.000</span><span>R$ 25.000</span><span>R$ 50.000+</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">⭐ O que você precisa?</div>
+    <div class="chips-grid" id="necessidadesGrid">
+      <div class="chip" data-valor="Traslado" onclick="toggleChip(this)">🚌 Traslado</div>
+      <div class="chip" data-valor="Seguro viagem" onclick="toggleChip(this)">🛡 Seguro viagem</div>
+      <div class="chip" data-valor="Passeios" onclick="toggleChip(this)">🗺 Passeios</div>
+      <div class="chip" data-valor="Parques" onclick="toggleChip(this)">🎢 Parques</div>
+      <div class="chip" data-valor="Chip internet" onclick="toggleChip(this)">📱 Chip internet</div>
+      <div class="chip" data-valor="Aluguel de carro" onclick="toggleChip(this)">🚗 Aluguel de carro</div>
+      <div class="chip" data-valor="Cruzeiro" onclick="toggleChip(this)">🚢 Cruzeiro</div>
+      <div class="chip" data-valor="Lua de mel" onclick="toggleChip(this)">💍 Lua de mel</div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">📝 Observações</div>
+    <label class="campo-label">Algum detalhe importante? (opcional)</label>
+    <textarea id="observacoes" placeholder="Ex: viagem de aniversário, precisamos de quarto com vista, crianças com 5 e 8 anos..."></textarea>
+  </div>
+
+  <button type="submit" class="btn-enviar">ENVIAR PARA A ARP TRAVEL</button>
+</form>
+
+<p class="aviso">Ao enviar, você concorda em ser contatado pela ARP Travel via WhatsApp para receber seu orçamento personalizado.</p>
+<p class="rodape">www.arptravel.com.br &nbsp;|&nbsp; @arptravel &nbsp;|&nbsp; (41) 99917-4720</p>
+
+<script>
+  const estado = { adultos:2, criancas:0, quartos:1 };
+
+  function alterar(campo, delta){
+    let min = campo === 'adultos' ? 1 : (campo === 'quartos' ? 1 : 0);
+    estado[campo] = Math.max(min, estado[campo] + delta);
+    document.getElementById(campo).textContent = estado[campo];
+  }
+
+  function selecionarUnico(el, grupoId){
+    document.querySelectorAll('#'+grupoId+' .opcao').forEach(o => o.classList.remove('selecionada'));
+    el.classList.add('selecionada');
+  }
+
+  function toggleChip(el){
+    el.classList.toggle('selecionada');
+  }
+
+  function atualizarOrcamento(valor){
+    const v = parseInt(valor);
+    const texto = v >= 51000 ? '50.000+' : v.toLocaleString('pt-BR');
+    document.getElementById('orcamentoValor').textContent = texto;
+  }
+
+  function marcarErro(input){
+    input.classList.add('erro');
+    input.addEventListener('input', () => input.classList.remove('erro'), {once:true});
+  }
+
+  document.getElementById('formOrcamento').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const nome = document.getElementById('nome');
+    const whatsapp = document.getElementById('whatsapp');
+    const destino = document.getElementById('destino');
+    const dataIda = document.getElementById('dataIda');
+    const dataVolta = document.getElementById('dataVolta');
+
+    let valido = true;
+    [nome, whatsapp, destino, dataIda, dataVolta].forEach(campo => {
+      if(!campo.value.trim()){ marcarErro(campo); valido = false; }
+    });
+    if(!valido){
+      alert('Por favor, preencha todos os campos obrigatórios (*) antes de enviar.');
+      return;
+    }
+
+    const bagagem = document.querySelector('#bagagemGrid .selecionada')?.dataset.valor || 'Não informado';
+    const cama = document.querySelector('#camaGrid .selecionada')?.dataset.valor || 'Não informado';
+    const necessidades = Array.from(document.querySelectorAll('#necessidadesGrid .selecionada')).map(c => c.dataset.valor);
+    const flexiveis = document.getElementById('datasFlexiveis').checked ? 'Sim' : 'Não';
+    const orcamento = document.getElementById('orcamentoValor').textContent;
+    const observacoes = document.getElementById('observacoes').value.trim();
+
+    const formatarData = (input) => {
+      if(!input.value) return '';
+      const [ano, mes, dia] = input.value.split('-');
+      return `${dia}/${mes}/${ano}`;
+    };
+
+    let msg = `Olá, ARP Travel! Quero solicitar um orçamento de viagem ✈️\n\n`;
+    msg += `*Nome:* ${nome.value.trim()}\n`;
+    msg += `*WhatsApp:* ${whatsapp.value.trim()}\n\n`;
+    msg += `*Destino:* ${destino.value.trim()}\n`;
+    msg += `*Data de ida:* ${formatarData(dataIda)}\n`;
+    msg += `*Data de volta:* ${formatarData(dataVolta)}\n`;
+    msg += `*Datas flexíveis:* ${flexiveis}\n\n`;
+    msg += `*Adultos:* ${estado.adultos}\n`;
+    msg += `*Crianças:* ${estado.criancas}\n`;
+    msg += `*Bagagem despachada:* ${bagagem}\n\n`;
+    msg += `*Quartos:* ${estado.quartos}\n`;
+    msg += `*Tipo de cama:* ${cama}\n\n`;
+    msg += `*Orçamento disponível:* R$ ${orcamento}\n\n`;
+    if(necessidades.length){
+      msg += `*O que preciso:* ${necessidades.join(', ')}\n\n`;
+    }
+    if(observacoes){
+      msg += `*Observações:* ${observacoes}\n\n`;
+    }
+    msg += `Aguardo o contato, obrigado(a)!`;
+
+    const url = `https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
