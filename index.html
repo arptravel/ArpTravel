@@ -458,6 +458,36 @@
     input.addEventListener('input', () => input.classList.remove('erro'), {once:true});
   }
 
+  function resetarFormulario(){
+    document.getElementById('formOrcamento').reset();
+
+    estado.adultos = 2;
+    estado.criancas = 0;
+    estado.quartos = 1;
+    document.getElementById('adultos').textContent = estado.adultos;
+    document.getElementById('criancas').textContent = estado.criancas;
+    document.getElementById('quartos').textContent = estado.quartos;
+
+    document.querySelectorAll('#bagagemGrid .opcao').forEach(o => o.classList.remove('selecionada'));
+    document.querySelector('#bagagemGrid .opcao[data-valor="1 mala (23kg)"]')?.classList.add('selecionada');
+
+    document.querySelectorAll('#camaGrid .opcao').forEach(o => o.classList.remove('selecionada'));
+    document.querySelector('#camaGrid .opcao[data-valor="Casal (1 cama de casal)"]')?.classList.add('selecionada');
+
+    document.querySelectorAll('#origemGrid .opcao').forEach(o => o.classList.remove('selecionada'));
+    document.getElementById('origemGrid').classList.remove('erro');
+    document.getElementById('origemGridErroMsg').style.display = 'none';
+
+    document.querySelectorAll('#necessidadesGrid .chip').forEach(c => c.classList.remove('selecionada'));
+
+    document.getElementById('orcamentoSlider').value = 5000;
+    atualizarOrcamento(5000);
+
+    document.querySelectorAll('input.erro, textarea.erro').forEach(el => el.classList.remove('erro'));
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   document.getElementById('formOrcamento').addEventListener('submit', function(e){
     e.preventDefault();
 
@@ -552,6 +582,8 @@
 
     const url = `https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
+
+    resetarFormulario();
   });
 </script>
 
