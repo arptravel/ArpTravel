@@ -274,6 +274,9 @@
     margin-top:4px;
     display:none;
   }
+  .opcoes-grid.erro .opcao{
+    border-color:var(--laranja);
+  }
 </style>
 </head>
 <body>
@@ -299,6 +302,18 @@
         <input type="tel" id="whatsapp" placeholder="(00) 90000-0000" required>
       </div>
     </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">📣 Como conheceu a ARP Travel?</div>
+    <div class="opcoes-grid" id="origemGrid">
+      <div class="opcao" data-valor="Instagram" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">📸</span>Instagram</div>
+      <div class="opcao" data-valor="Indicação" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🤝</span>Indicação</div>
+      <div class="opcao" data-valor="WhatsApp" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">💬</span>WhatsApp</div>
+      <div class="opcao" data-valor="Site" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🌐</span>Site</div>
+      <div class="opcao" data-valor="Google" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🔎</span>Google</div>
+    </div>
+    <div class="campo-erro-msg" id="origemGridErroMsg">Selecione uma opção.</div>
   </div>
 
   <div class="secao">
@@ -423,6 +438,9 @@
   function selecionarUnico(el, grupoId){
     document.querySelectorAll('#'+grupoId+' .opcao').forEach(o => o.classList.remove('selecionada'));
     el.classList.add('selecionada');
+    document.getElementById(grupoId).classList.remove('erro');
+    const msgErro = document.getElementById(grupoId+'ErroMsg');
+    if(msgErro) msgErro.style.display = 'none';
   }
 
   function toggleChip(el){
@@ -453,11 +471,20 @@
     [nome, whatsapp, destino, dataIda, dataVolta].forEach(campo => {
       if(!campo.value.trim()){ marcarErro(campo); valido = false; }
     });
+
+    const origemEl = document.querySelector('#origemGrid .selecionada');
+    if(!origemEl){
+      document.getElementById('origemGrid').classList.add('erro');
+      document.getElementById('origemGridErroMsg').style.display = 'block';
+      valido = false;
+    }
+
     if(!valido){
       alert('Por favor, preencha todos os campos obrigatórios (*) antes de enviar.');
       return;
     }
 
+    const origem = origemEl.dataset.valor;
     const bagagem = document.querySelector('#bagagemGrid .selecionada')?.dataset.valor || 'Não informado';
     const cama = document.querySelector('#camaGrid .selecionada')?.dataset.valor || 'Não informado';
     const necessidades = Array.from(document.querySelectorAll('#necessidadesGrid .selecionada')).map(c => c.dataset.valor);
@@ -473,7 +500,8 @@
 
     let msg = `Olá, ARP Travel! Quero solicitar um orçamento de viagem ✈️\n\n`;
     msg += `*Nome:* ${nome.value.trim()}\n`;
-    msg += `*WhatsApp:* ${whatsapp.value.trim()}\n\n`;
+    msg += `*WhatsApp:* ${whatsapp.value.trim()}\n`;
+    msg += `*Como conheceu a ARP Travel:* ${origem}\n\n`;
     msg += `*Destino:* ${destino.value.trim()}\n`;
     msg += `*Data de ida:* ${formatarData(dataIda)}\n`;
     msg += `*Data de volta:* ${formatarData(dataVolta)}\n`;
@@ -507,7 +535,8 @@
       tipoCama: cama,
       orcamento: orcamento,
       necessidades: necessidades.join(', '),
-      observacoes: observacoes
+      observacoes: observacoes,
+      origem: origem
     });
     // sendBeacon garante que o envio chega mesmo se o usuário sair da página logo em seguida
     if (navigator.sendBeacon) {
