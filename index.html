@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARP Travel — Solicitar Orçamento</title>
+<title>ARP Travel — Sua viagem planejada em minutos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
     --laranja:#FC4C01;
@@ -19,59 +19,115 @@
     --bg:#F4F2EE;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
     font-family:'Poppins',system-ui,-apple-system,sans-serif;
     background:var(--bg);
     color:var(--preto);
-    padding:0 0 60px;
   }
+
+  /* ---------- HERO / TOPO ---------- */
   .topo{
-    background:var(--verde-escuro);
-    padding:36px 24px 44px;
+    background:var(--verde-profundo);
+    padding:38px 24px 52px;
     text-align:center;
     position:relative;
     overflow:hidden;
   }
-  .logo-pill{
+  .topo-logo{
+    height:96px;
     display:inline-block;
-    background:var(--verde-profundo);
-    color:var(--branco);
-    font-weight:800;
-    letter-spacing:3px;
-    font-size:13px;
-    padding:8px 18px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.25);
   }
-  .logo-sub{
-    color:#bcd6c8;
-    font-size:10px;
-    letter-spacing:4px;
-    margin-top:6px;
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    font-size:11px;
+    letter-spacing:.3em;
     font-weight:600;
+    text-transform:uppercase;
+    color:#fff;
+    opacity:.85;
+    margin-top:22px;
   }
-  .titulo{
+  .eyebrow::before, .eyebrow::after{
+    content:"";
+    width:26px;
+    height:1px;
+    background:currentColor;
+    opacity:.6;
+  }
+  .trust-bar{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    padding:7px 16px;
+    border-radius:999px;
+    font-size:12px;
+    color:#fff;
+    font-weight:600;
+    margin-top:18px;
+  }
+  .trust-bar .estrelas{color:var(--laranja);letter-spacing:1px;}
+  .headline{
     color:var(--branco);
-    font-size:28px;
+    font-size:clamp(26px,6.5vw,36px);
     font-weight:800;
-    letter-spacing:1px;
-    margin:22px 0 8px;
+    text-transform:uppercase;
+    letter-spacing:-.01em;
+    line-height:1.1;
+    margin:20px auto 12px;
+    max-width:19ch;
   }
-  .subtitulo{
+  .subheadline{
     color:#d9ead9;
-    font-style:italic;
-    font-size:14px;
-    font-weight:400;
-    margin:0;
+    font-weight:300;
+    font-size:14.5px;
+    line-height:1.65;
+    margin:0 auto 24px;
+    max-width:40ch;
+    opacity:.95;
   }
+  .beneficios{
+    max-width:460px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 18px;
+    text-align:left;
+  }
+  @media(max-width:480px){ .beneficios{grid-template-columns:1fr;} }
+  .beneficio{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    color:#fff;
+    font-size:12.5px;
+    font-weight:500;
+    line-height:1.4;
+  }
+  .beneficio .check{
+    flex:none;
+    width:18px;height:18px;
+    border-radius:5px;
+    background:var(--laranja);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:800;
+    margin-top:1px;
+  }
+
+  /* ---------- CARD / FORM ---------- */
   .card{
-    max-width:620px;
+    max-width:640px;
     margin:-24px auto 0;
     background:var(--branco);
     border-radius:20px;
     padding:28px 24px 32px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    box-shadow:0 14px 34px rgba(0,0,0,.12);
   }
   .secao{
     margin-bottom:26px;
@@ -95,13 +151,13 @@
     color:var(--preto);
     margin-bottom:6px;
   }
-  input[type=text], input[type=tel], input[type=date], textarea{
+  input[type=text], input[type=tel], input[type=date], input[type=number], textarea{
     width:100%;
     border:1.5px solid var(--cinza-borda);
     border-radius:12px;
     padding:12px 14px;
     font-family:inherit;
-    font-size:14px;
+    font-size:16px;
     color:var(--preto);
     background:var(--branco);
     outline:none;
@@ -110,7 +166,7 @@
   input:focus, textarea:focus{
     border-color:var(--laranja);
   }
-  input.erro, textarea.erro, .cama-grid.erro .opcao{
+  input.erro, textarea.erro{
     border-color:var(--laranja) !important;
   }
   .grid2{
@@ -167,6 +223,15 @@
     font-weight:700;
     color:var(--verde-profundo);
   }
+  .idades-wrap{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  @media(max-width:480px){ .idades-wrap{grid-template-columns:1fr;} }
+  .quarto-bloco{margin-top:16px;}
+  .quarto-bloco:first-child{margin-top:12px;}
   .opcoes-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -234,40 +299,6 @@
     color:var(--verde-profundo);
   }
   textarea{resize:vertical;min-height:80px;font-family:inherit;}
-  .btn-enviar{
-    width:100%;
-    margin-top:28px;
-    background:var(--laranja);
-    color:var(--branco);
-    border:none;
-    border-radius:14px;
-    padding:16px;
-    font-size:14px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    cursor:pointer;
-    box-shadow:0 8px 20px rgba(252,76,1,.35);
-    transition:transform .1s;
-  }
-  .btn-enviar:hover{transform:translateY(-1px);}
-  .aviso{
-    max-width:620px;
-    margin:16px auto 0;
-    text-align:center;
-    font-size:11px;
-    font-style:italic;
-    color:var(--cinza-texto);
-    padding:0 24px;
-  }
-  .rodape{
-    max-width:620px;
-    margin:18px auto 0;
-    text-align:center;
-    font-size:12px;
-    color:var(--verde-profundo);
-    font-weight:600;
-    padding:0 24px;
-  }
   .campo-erro-msg{
     color:var(--laranja);
     font-size:11px;
@@ -277,162 +308,1066 @@
   .opcoes-grid.erro .opcao{
     border-color:var(--laranja);
   }
+
+  /* ---------- ABAS (Orçamento x Roteiros prontos) ---------- */
+  .tabs-topo{
+    display:flex;
+    background:var(--bg);
+    border-radius:999px;
+    padding:4px;
+    margin-bottom:24px;
+    gap:4px;
+  }
+  .tab-btn{
+    flex:1;
+    border:none;
+    background:none;
+    padding:11px 8px;
+    border-radius:999px;
+    font-size:11.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    color:var(--cinza-texto);
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .tab-btn.ativo{
+    background:var(--verde-profundo);
+    color:#fff;
+    box-shadow:0 4px 12px rgba(0,57,28,.22);
+  }
+
+  /* ---------- ROTEIROS PRONTOS / LISTA DE ESPERA ---------- */
+  .roteiros-intro{margin-bottom:22px;}
+  .roteiros-intro .eyebrow{color:var(--laranja);opacity:1;margin-top:0;justify-content:flex-start;}
+  .roteiros-intro h3{
+    color:var(--verde-profundo);
+    font-size:20px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:-.01em;
+    margin:10px 0 6px;
+  }
+  .roteiros-intro p{
+    font-size:13px;
+    color:var(--cinza-texto);
+    font-weight:400;
+    line-height:1.55;
+    margin:0;
+  }
+  .roteiros-lista{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+  .roteiro-card{
+    border:1.5px solid var(--cinza-borda);
+    border-radius:16px;
+    padding:16px;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .roteiro-card:hover{border-color:#c9c9c5;}
+  .roteiro-card.selecionada{
+    border-color:var(--laranja);
+    background:#FFF4EE;
+  }
+  .roteiro-nome{font-size:14.5px;font-weight:700;color:var(--verde-profundo);margin-bottom:6px;}
+  .roteiro-desc{font-size:12.5px;color:var(--cinza-texto);line-height:1.5;margin:0 0 10px;}
+  .roteiro-rodape{display:flex;align-items:center;justify-content:space-between;}
+  .roteiro-preco{font-size:14px;font-weight:800;color:var(--laranja);}
+  .roteiro-preco span{font-weight:400;color:var(--cinza-texto);font-size:10.5px;display:block;}
+  .roteiro-check{
+    width:22px;height:22px;border-radius:50%;
+    border:1.5px solid var(--cinza-borda);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;color:transparent;
+    transition:all .15s;
+  }
+  .roteiro-card.selecionada .roteiro-check{
+    background:var(--laranja);border-color:var(--laranja);color:#fff;
+  }
+
+  /* ---------- CHAT RÁPIDO ---------- */
+  .chat-janela{
+    display:flex;flex-direction:column;gap:10px;
+    max-height:420px;overflow-y:auto;
+    padding:6px 2px 14px;
+    margin-bottom:14px;
+  }
+  .chat-bolha{
+    max-width:82%;padding:11px 15px;border-radius:16px;
+    font-size:14.5px;line-height:1.45;
+    animation:chatSurge .2s ease;
+  }
+  @keyframes chatSurge{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .chat-bolha.bot{
+    align-self:flex-start;
+    background:var(--verde-profundo);color:#fff;
+    border-bottom-left-radius:4px;
+  }
+  .chat-bolha.usuario{
+    align-self:flex-end;
+    background:var(--laranja);color:#fff;
+    border-bottom-right-radius:4px;
+  }
+  .chat-bolha.erro{
+    align-self:flex-start;
+    background:#fff;color:#B3261E;border:1.5px solid #F2C6C2;
+    border-bottom-left-radius:4px;
+  }
+  .chat-form{display:flex;gap:8px;}
+  .chat-input{
+    flex:1;padding:13px 16px;border-radius:999px;
+    border:1.5px solid var(--cinza-borda);font-size:14.5px;font-family:inherit;
+  }
+  .chat-input:focus{outline:none;border-color:var(--laranja);}
+  .chat-enviar{
+    width:46px;height:46px;flex-shrink:0;border-radius:50%;
+    background:var(--laranja);color:#fff;border:none;
+    font-size:18px;cursor:pointer;transition:filter .15s;
+  }
+  .chat-enviar:hover{filter:brightness(1.08);}
+  .chat-enviar:disabled{opacity:.5;cursor:default;}
+
+  /* ---------- PROGRESSO (multi-step) ---------- */
+  .progresso{margin-bottom:26px;}
+  .progresso-passos{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;}
+  .passo-dot{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--cinza-borda);color:var(--cinza-texto);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;
+    transition:all .2s;
+  }
+  .passo-dot.ativo{background:var(--laranja);color:#fff;}
+  .passo-dot.concluido{background:var(--verde-escuro);color:#fff;}
+  .passo-linha{width:34px;height:2px;background:var(--cinza-borda);transition:background .2s;}
+  .passo-linha.concluido{background:var(--verde-escuro);}
+  .progresso-label{
+    text-align:center;font-size:11.5px;font-weight:700;
+    color:var(--verde-profundo);text-transform:uppercase;letter-spacing:1px;
+  }
+
+  /* ---------- NAV DE ETAPAS + CTA ---------- */
+  .nav-passos{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:28px;}
+  .form-step[data-step="1"] .nav-passos{justify-content:flex-end;}
+  .btn-continuar{
+    background:var(--verde-escuro);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:16px 28px;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:transform .15s,box-shadow .2s;
+    flex:1;
+  }
+  .btn-continuar:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(31,85,64,.28);}
+  .btn-voltar{
+    background:none;
+    border:none;
+    color:var(--cinza-texto);
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    padding:12px 6px;
+    white-space:nowrap;
+  }
+  .btn-voltar:hover{color:var(--verde-profundo);}
+  .btn-enviar{
+    width:100%;
+    margin-top:8px;
+    background:var(--laranja);
+    color:var(--branco);
+    border:none;
+    border-radius:999px;
+    padding:17px;
+    font-size:14px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(252,76,1,.35);
+    transition:transform .15s,box-shadow .2s;
+  }
+  .btn-enviar:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(252,76,1,.45);}
+  .microcopy-confianca{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--cinza-texto);
+    margin:12px 0 0;
+    line-height:1.6;
+  }
+  .confirmacao{
+    display:none;
+    background:#EAF3EE;
+    border:1.5px solid var(--verde-escuro);
+    color:var(--verde-profundo);
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:13px;
+    font-weight:600;
+    text-align:center;
+    margin-bottom:22px;
+  }
+  .confirmacao.mostrar{display:block;}
+
+  .aviso{
+    max-width:640px;
+    margin:16px auto 0;
+    text-align:center;
+    font-size:11px;
+    font-style:italic;
+    color:var(--cinza-texto);
+    padding:0 24px;
+  }
+
+  /* ---------- COMO FUNCIONA ---------- */
+  .wrap-secao{max-width:640px;margin:0 auto;padding:0 24px;}
+  .como-funciona{background:var(--verde-escuro);padding:56px 0;margin-top:44px;}
+  .sec-titulo{
+    color:#fff;
+    font-size:clamp(22px,5.5vw,28px);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:-.01em;
+    text-align:center;
+    margin:14px 0 30px;
+  }
+  .como-funciona .eyebrow{display:flex;justify-content:center;color:var(--laranja);opacity:1;margin-top:0;}
+  .passos-grid{display:flex;flex-direction:column;gap:16px;}
+  .passo-item{
+    display:flex;gap:16px;align-items:flex-start;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;padding:18px;
+  }
+  .passo-num{
+    flex:none;width:36px;height:36px;border-radius:50%;
+    background:var(--laranja);color:#fff;font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .passo-item h4{color:#fff;font-size:15px;font-weight:700;margin:0 0 4px;}
+  .passo-item p{color:#d9ead9;font-size:13px;font-weight:300;line-height:1.5;margin:0;}
+
+  /* ---------- PROVAS SOCIAIS ---------- */
+  .provas{background:var(--bg);padding:56px 0;}
+  .provas .eyebrow{display:flex;justify-content:center;color:var(--laranja);opacity:1;margin-top:0;}
+  .provas .sec-titulo{color:var(--verde-profundo);}
+  .google-badge{
+    display:flex;align-items:center;gap:9px;margin:0 auto 26px;width:fit-content;
+    background:#fff;color:var(--verde-profundo);padding:9px 18px;
+    border-radius:999px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.08);
+  }
+  .google-badge b{font-weight:800;}
+  .depoimentos{display:flex;flex-direction:column;gap:14px;}
+  .depoimento{background:#fff;border-radius:18px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
+  .depoimento .estrelas{color:var(--laranja);letter-spacing:3px;font-size:13px;margin-bottom:10px;}
+  .depoimento p{font-size:13.5px;color:#333;font-weight:300;font-style:italic;line-height:1.6;margin:0;}
+  .depoimento .who{margin-top:14px;font-weight:700;font-size:13px;color:var(--verde-profundo);}
+  .depoimento .who span{display:block;font-weight:400;font-size:11.5px;opacity:.7;margin-top:2px;}
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{background:var(--verde-profundo);padding:56px 0;text-align:center;}
+  .cta-final h3{color:#fff;font-size:clamp(20px,4.5vw,26px);font-weight:800;text-transform:uppercase;margin:0 0 10px;letter-spacing:-.01em;}
+  .cta-final p{color:#d9ead9;font-size:13.5px;font-weight:300;margin:0 0 22px;}
+  .cta-final a.btn-final{
+    display:inline-block;background:var(--laranja);color:#fff;
+    padding:16px 34px;border-radius:999px;font-weight:700;font-size:13px;
+    text-transform:uppercase;letter-spacing:1px;text-decoration:none;
+    box-shadow:0 8px 24px rgba(252,76,1,.35);transition:transform .15s;
+  }
+  .cta-final a.btn-final:hover{transform:translateY(-2px);}
+
+  /* ---------- FOOTER ---------- */
+  footer.rodape{
+    background:#00280f;
+    color:rgba(255,255,255,.72);
+    padding:44px 24px 26px;
+    text-align:center;
+  }
+  footer.rodape .rodape-logo{
+    height:110px;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  footer.rodape p{
+    font-size:13px;
+    font-weight:300;
+    max-width:38ch;
+    margin:0 auto;
+    line-height:1.7;
+  }
+  footer.rodape .rodape-links{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:22px;
+    font-size:12.5px;
+  }
+  footer.rodape .rodape-links a{
+    color:#fff;
+    opacity:.85;
+    text-decoration:none;
+    transition:opacity .2s,color .2s;
+  }
+  footer.rodape .rodape-links a:hover{opacity:1;color:var(--laranja);}
+  footer.rodape .rodape-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    margin-top:30px;
+    padding-top:18px;
+    font-size:11px;
+    opacity:.6;
+  }
+
+  /* ---------- WHATSAPP FLUTUANTE ---------- */
+  .float-wa{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:80;
+    background:#25D366;
+    color:#fff;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.28);
+    transition:transform .15s;
+  }
+  .float-wa:hover{transform:scale(1.08);}
+  .float-wa svg{width:27px;height:27px;}
+
+  /* ---------- CTA STICKY MOBILE ---------- */
+  .cta-sticky{display:none;}
+  @media(max-width:640px){
+    .cta-sticky{
+      display:block;
+      position:fixed;
+      left:0;right:0;bottom:0;
+      z-index:70;
+      background:var(--branco);
+      padding:12px 16px calc(10px + env(safe-area-inset-bottom));
+      box-shadow:0 -6px 20px rgba(0,0,0,.14);
+    }
+    .cta-sticky a{
+      display:block;width:100%;text-align:center;
+      background:var(--laranja);color:#fff;
+      border-radius:999px;padding:14px;font-weight:700;
+      text-transform:uppercase;letter-spacing:1px;font-size:13px;
+      box-shadow:0 8px 20px rgba(252,76,1,.35);
+      text-decoration:none;
+    }
+    .float-wa{bottom:82px;}
+    body{padding-bottom:74px;}
+  }
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;transition:none!important;}}
+
+  /* ---------- HERO EM 2 COLUNAS (DESKTOP) ---------- */
+  @media(min-width:960px){
+    .hero-wrap{
+      background:var(--verde-profundo);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      gap:64px;
+      padding:80px 40px 96px;
+    }
+    .topo{
+      background:none;
+      padding:0;
+      text-align:left;
+      overflow:visible;
+      flex:0 1 460px;
+    }
+    .topo .eyebrow{justify-content:flex-start;}
+    .topo .trust-bar{margin-left:0;}
+    .topo .headline{text-align:left;margin-left:0;margin-right:0;max-width:16ch;}
+    .topo .subheadline{text-align:left;margin-left:0;margin-right:0;max-width:44ch;}
+    .topo .beneficios{margin-left:0;}
+    .card{
+      margin:0;
+      flex:0 0 440px;
+      align-self:flex-start;
+    }
+  }
 </style>
 </head>
 <body>
 
+<div class="hero-wrap">
 <div class="topo">
-  <span class="logo-pill">ARPTRAVEL</span>
-  <div class="logo-sub">VIAGENS</div>
-  <div class="titulo">SOLICITAR ORÇAMENTO</div>
-  <p class="subtitulo">Preencha abaixo e receba sua proposta personalizada ✈️</p>
+  <a href="https://arptravel.com.br" aria-label="ARP Travel">
+    <img class="topo-logo" src="https://arptravel.com.br/logo-branca.png" alt="ARP Travel">
+  </a>
+  <div><span class="eyebrow">Agência de viagens · Curitiba</span></div>
+
+  <div class="trust-bar"><span class="estrelas">★★★★★</span> 5,0 no Google</div>
+
+  <h1 class="headline">Sua próxima viagem, 100% planejada — sem você mexer um dedo.</h1>
+  <p class="subheadline">Conta pra gente pra onde quer ir. Em até 24h você recebe um roteiro sob medida — voos, hospedagem e passeios já resolvidos. Sem compromisso, sem letra miúda.</p>
+
+  <div class="beneficios">
+    <div class="beneficio"><span class="check">✓</span> Roteiro feito do zero pra você</div>
+    <div class="beneficio"><span class="check">✓</span> Atendimento humano, sem robô</div>
+    <div class="beneficio"><span class="check">✓</span> Suporte durante toda a viagem</div>
+    <div class="beneficio"><span class="check">✓</span> Parcelamento facilitado</div>
+    <div class="beneficio"><span class="check">✓</span> Resposta em até 24h</div>
+    <div class="beneficio"><span class="check">✓</span> Sem compromisso</div>
+  </div>
 </div>
 
-<form class="card" id="formOrcamento">
+<div class="card" id="cardPrincipal">
 
-  <div class="secao">
-    <div class="secao-titulo">👤 Seus Dados</div>
-    <div class="grid2">
-      <div>
-        <label class="campo-label">Nome completo *</label>
-        <input type="text" id="nome" placeholder="Seu nome" required>
-      </div>
-      <div>
-        <label class="campo-label">WhatsApp *</label>
-        <input type="tel" id="whatsapp" placeholder="(00) 90000-0000" required>
-      </div>
+  <div class="tabs-topo">
+    <button type="button" class="tab-btn ativo" data-tab="orcamento" onclick="trocarTab('orcamento')">Orçamento personalizado</button>
+    <button type="button" class="tab-btn" data-tab="roteiros" onclick="trocarTab('roteiros')">Roteiros prontos</button>
+    <button type="button" class="tab-btn" data-tab="chat" onclick="trocarTab('chat')">Chat rápido</button>
+  </div>
+
+  <div class="tab-painel" id="painelOrcamento">
+  <form id="formOrcamento">
+
+  <div class="progresso">
+    <div class="progresso-passos">
+      <div class="passo-dot ativo" data-passo="1">1</div>
+      <div class="passo-linha"></div>
+      <div class="passo-dot" data-passo="2">2</div>
+      <div class="passo-linha"></div>
+      <div class="passo-dot" data-passo="3">3</div>
     </div>
+    <div class="progresso-label" id="progressoLabel">Etapa 1 de 3 — Sobre sua viagem</div>
   </div>
 
-  <div class="secao">
-    <div class="secao-titulo">📣 Como conheceu a ARP Travel?</div>
-    <div class="opcoes-grid" id="origemGrid">
-      <div class="opcao" data-valor="Instagram" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">📸</span>Instagram</div>
-      <div class="opcao" data-valor="Indicação" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🤝</span>Indicação</div>
-      <div class="opcao" data-valor="WhatsApp" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">💬</span>WhatsApp</div>
-      <div class="opcao" data-valor="Site" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🌐</span>Site</div>
-      <div class="opcao" data-valor="Google" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🔎</span>Google</div>
-    </div>
-    <div class="campo-erro-msg" id="origemGridErroMsg">Selecione uma opção.</div>
-  </div>
+  <!-- ETAPA 1 — SEUS DADOS -->
+  <div class="form-step" data-step="1">
 
-  <div class="secao">
-    <div class="secao-titulo">🌍 Destino</div>
-    <label class="campo-label">Para onde você quer ir? *</label>
-    <input type="text" id="destino" placeholder="Digite o destino (ex: Paris, Cancún, Gramado...)" required>
-  </div>
-
-  <div class="secao">
-    <div class="secao-titulo">📅 Datas da Viagem</div>
-    <div class="grid2">
-      <div>
-        <label class="campo-label">Data de ida *</label>
-        <input type="date" id="dataIda" required>
-      </div>
-      <div>
-        <label class="campo-label">Data de volta *</label>
-        <input type="date" id="dataVolta" required>
+    <div class="secao">
+      <div class="secao-titulo">👤 Seus Dados</div>
+      <div class="grid2">
+        <div>
+          <label class="campo-label">Nome completo *</label>
+          <input type="text" id="nome" placeholder="Seu nome" required>
+        </div>
+        <div>
+          <label class="campo-label">WhatsApp *</label>
+          <input type="tel" id="whatsapp" placeholder="(00) 90000-0000" inputmode="tel" required>
+        </div>
       </div>
     </div>
-    <label class="flex-check">
-      <input type="checkbox" id="datasFlexiveis">
-      Datas flexíveis — posso viajar em outras datas se o preço for melhor
-    </label>
+
+    <div class="nav-passos">
+      <button type="button" class="btn-continuar" onclick="irParaPasso(2)">Continuar →</button>
+    </div>
   </div>
 
-  <div class="secao">
-    <div class="secao-titulo">👥 Passageiros</div>
-    <div class="stepper-row">
-      <div class="stepper-label">✈️ Adultos</div>
-      <div class="stepper">
-        <button type="button" onclick="alterar('adultos',-1)">−</button>
-        <span id="adultos">2</span>
-        <button type="button" onclick="alterar('adultos',1)">+</button>
+  <!-- ETAPA 2 — SOBRE SUA VIAGEM -->
+  <div class="form-step" data-step="2" hidden>
+
+    <div class="secao">
+      <div class="secao-titulo">📣 Como conheceu a ARP Travel?</div>
+      <div class="opcoes-grid" id="origemGrid">
+        <div class="opcao" data-valor="Instagram" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">📸</span>Instagram</div>
+        <div class="opcao" data-valor="Indicação" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🤝</span>Indicação</div>
+        <div class="opcao" data-valor="WhatsApp" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">💬</span>WhatsApp</div>
+        <div class="opcao" data-valor="Site" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🌐</span>Site</div>
+        <div class="opcao" data-valor="Google" onclick="selecionarUnico(this,'origemGrid')"><span class="emoji">🔎</span>Google</div>
+      </div>
+      <div class="campo-erro-msg" id="origemGridErroMsg">Selecione uma opção.</div>
+    </div>
+
+    <div class="secao">
+      <div class="secao-titulo">🛫 Cidade de partida</div>
+      <label class="campo-label">De onde você vai sair? *</label>
+      <input type="text" id="cidadePartida" list="listaCidadesBR" placeholder="Digite ou selecione sua cidade" required>
+      <datalist id="listaCidadesBR">
+        <option value="Rio Branco, AC"><option value="Cruzeiro do Sul, AC">
+        <option value="Macapá, AP"><option value="Santana, AP">
+        <option value="Manaus, AM"><option value="Parintins, AM"><option value="Itacoatiara, AM"><option value="Manacapuru, AM">
+        <option value="Belém, PA"><option value="Ananindeua, PA"><option value="Santarém, PA"><option value="Marabá, PA"><option value="Castanhal, PA"><option value="Parauapebas, PA"><option value="Abaetetuba, PA"><option value="Cametá, PA"><option value="Bragança, PA"><option value="Altamira, PA">
+        <option value="Porto Velho, RO"><option value="Ji-Paraná, RO"><option value="Ariquemes, RO"><option value="Vilhena, RO"><option value="Cacoal, RO">
+        <option value="Boa Vista, RR">
+        <option value="Palmas, TO"><option value="Araguaína, TO"><option value="Gurupi, TO"><option value="Porto Nacional, TO">
+        <option value="São Luís, MA"><option value="Imperatriz, MA"><option value="Caxias, MA"><option value="Timon, MA"><option value="Codó, MA"><option value="Açailândia, MA"><option value="Bacabal, MA"><option value="Balsas, MA">
+        <option value="Teresina, PI"><option value="Parnaíba, PI"><option value="Picos, PI"><option value="Floriano, PI">
+        <option value="Fortaleza, CE"><option value="Caucaia, CE"><option value="Juazeiro do Norte, CE"><option value="Maracanaú, CE"><option value="Sobral, CE"><option value="Crato, CE"><option value="Itapipoca, CE"><option value="Maranguape, CE"><option value="Iguatu, CE"><option value="Quixadá, CE">
+        <option value="Natal, RN"><option value="Mossoró, RN"><option value="Parnamirim, RN"><option value="São Gonçalo do Amarante, RN"><option value="Caicó, RN">
+        <option value="João Pessoa, PB"><option value="Campina Grande, PB"><option value="Santa Rita, PB"><option value="Patos, PB"><option value="Bayeux, PB"><option value="Sousa, PB">
+        <option value="Recife, PE"><option value="Jaboatão dos Guararapes, PE"><option value="Olinda, PE"><option value="Caruaru, PE"><option value="Petrolina, PE"><option value="Paulista, PE"><option value="Cabo de Santo Agostinho, PE"><option value="Camaragibe, PE"><option value="Garanhuns, PE"><option value="Vitória de Santo Antão, PE"><option value="Ipojuca, PE">
+        <option value="Maceió, AL"><option value="Arapiraca, AL"><option value="Palmeira dos Índios, AL"><option value="Rio Largo, AL">
+        <option value="Aracaju, SE"><option value="Nossa Senhora do Socorro, SE"><option value="Lagarto, SE"><option value="Itabaiana, SE">
+        <option value="Salvador, BA"><option value="Feira de Santana, BA"><option value="Vitória da Conquista, BA"><option value="Camaçari, BA"><option value="Itabuna, BA"><option value="Juazeiro, BA"><option value="Ilhéus, BA"><option value="Lauro de Freitas, BA"><option value="Jequié, BA"><option value="Teixeira de Freitas, BA"><option value="Alagoinhas, BA"><option value="Barreiras, BA"><option value="Porto Seguro, BA"><option value="Simões Filho, BA"><option value="Paulo Afonso, BA"><option value="Eunápolis, BA">
+        <option value="Cuiabá, MT"><option value="Várzea Grande, MT"><option value="Rondonópolis, MT"><option value="Sinop, MT"><option value="Tangará da Serra, MT"><option value="Cáceres, MT"><option value="Barra do Garças, MT">
+        <option value="Campo Grande, MS"><option value="Dourados, MS"><option value="Três Lagoas, MS"><option value="Corumbá, MS"><option value="Ponta Porã, MS"><option value="Naviraí, MS">
+        <option value="Goiânia, GO"><option value="Aparecida de Goiânia, GO"><option value="Anápolis, GO"><option value="Rio Verde, GO"><option value="Luziânia, GO"><option value="Águas Lindas de Goiás, GO"><option value="Valparaíso de Goiás, GO"><option value="Trindade, GO"><option value="Formosa, GO"><option value="Itumbiara, GO"><option value="Catalão, GO"><option value="Jataí, GO"><option value="Caldas Novas, GO">
+        <option value="Brasília, DF">
+        <option value="Belo Horizonte, MG"><option value="Uberlândia, MG"><option value="Contagem, MG"><option value="Juiz de Fora, MG"><option value="Betim, MG"><option value="Montes Claros, MG"><option value="Ribeirão das Neves, MG"><option value="Uberaba, MG"><option value="Governador Valadares, MG"><option value="Ipatinga, MG"><option value="Sete Lagoas, MG"><option value="Divinópolis, MG"><option value="Santa Luzia, MG"><option value="Poços de Caldas, MG"><option value="Patos de Minas, MG"><option value="Pouso Alegre, MG"><option value="Teófilo Otoni, MG"><option value="Barbacena, MG"><option value="Sabará, MG"><option value="Varginha, MG"><option value="Conselheiro Lafaiete, MG"><option value="Vespasiano, MG"><option value="Itabira, MG"><option value="Araguari, MG"><option value="Passos, MG"><option value="Ubá, MG"><option value="Coronel Fabriciano, MG"><option value="Muriaé, MG"><option value="Ituiutaba, MG"><option value="Lavras, MG">
+        <option value="Vitória, ES"><option value="Vila Velha, ES"><option value="Serra, ES"><option value="Cariacica, ES"><option value="Cachoeiro de Itapemirim, ES"><option value="Linhares, ES"><option value="Colatina, ES"><option value="Guarapari, ES"><option value="São Mateus, ES">
+        <option value="Rio de Janeiro, RJ"><option value="São Gonçalo, RJ"><option value="Duque de Caxias, RJ"><option value="Nova Iguaçu, RJ"><option value="Niterói, RJ"><option value="Belford Roxo, RJ"><option value="São João de Meriti, RJ"><option value="Petrópolis, RJ"><option value="Volta Redonda, RJ"><option value="Magé, RJ"><option value="Macaé, RJ"><option value="Cabo Frio, RJ"><option value="Nova Friburgo, RJ"><option value="Barra Mansa, RJ"><option value="Angra dos Reis, RJ"><option value="Teresópolis, RJ"><option value="Itaboraí, RJ"><option value="Mesquita, RJ"><option value="Nilópolis, RJ"><option value="Resende, RJ"><option value="Araruama, RJ"><option value="Queimados, RJ"><option value="Búzios, RJ"><option value="Paraty, RJ">
+        <option value="São Paulo, SP"><option value="Guarulhos, SP"><option value="Campinas, SP"><option value="São Bernardo do Campo, SP"><option value="Santo André, SP"><option value="Osasco, SP"><option value="São José dos Campos, SP"><option value="Ribeirão Preto, SP"><option value="Sorocaba, SP"><option value="Mauá, SP"><option value="São José do Rio Preto, SP"><option value="Mogi das Cruzes, SP"><option value="Santos, SP"><option value="Diadema, SP"><option value="Jundiaí, SP"><option value="Piracicaba, SP"><option value="Carapicuíba, SP"><option value="Bauru, SP"><option value="São Vicente, SP"><option value="Franca, SP"><option value="Praia Grande, SP"><option value="Guarujá, SP"><option value="Taubaté, SP"><option value="Limeira, SP"><option value="Suzano, SP"><option value="Taboão da Serra, SP"><option value="Sumaré, SP"><option value="Barueri, SP"><option value="Embu das Artes, SP"><option value="São Carlos, SP"><option value="Indaiatuba, SP"><option value="Cotia, SP"><option value="Americana, SP"><option value="Marília, SP"><option value="Araraquara, SP"><option value="Jacareí, SP"><option value="Presidente Prudente, SP"><option value="Itu, SP"><option value="Rio Claro, SP"><option value="Hortolândia, SP"><option value="Itapevi, SP"><option value="Araçatuba, SP"><option value="Ferraz de Vasconcelos, SP"><option value="Itapecerica da Serra, SP"><option value="Bragança Paulista, SP"><option value="Botucatu, SP"><option value="Pindamonhangaba, SP"><option value="Atibaia, SP"><option value="Ourinhos, SP"><option value="Ubatuba, SP"><option value="Ilhabela, SP"><option value="Caraguatatuba, SP"><option value="São Sebastião, SP">
+        <option value="Curitiba, PR"><option value="Londrina, PR"><option value="Maringá, PR"><option value="Ponta Grossa, PR"><option value="Cascavel, PR"><option value="São José dos Pinhais, PR"><option value="Foz do Iguaçu, PR"><option value="Colombo, PR"><option value="Guarapuava, PR"><option value="Paranaguá, PR"><option value="Araucária, PR"><option value="Toledo, PR"><option value="Apucarana, PR"><option value="Pinhais, PR"><option value="Campo Largo, PR"><option value="Almirante Tamandaré, PR"><option value="Umuarama, PR"><option value="Cambé, PR"><option value="Arapongas, PR">
+        <option value="Florianópolis, SC"><option value="Joinville, SC"><option value="Blumenau, SC"><option value="São José, SC"><option value="Chapecó, SC"><option value="Itajaí, SC"><option value="Criciúma, SC"><option value="Jaraguá do Sul, SC"><option value="Palhoça, SC"><option value="Balneário Camboriú, SC"><option value="Brusque, SC"><option value="Tubarão, SC"><option value="São Bento do Sul, SC"><option value="Caçador, SC"><option value="Camboriú, SC"><option value="Concórdia, SC"><option value="Lages, SC"><option value="Navegantes, SC"><option value="Rio do Sul, SC"><option value="Gaspar, SC">
+        <option value="Porto Alegre, RS"><option value="Caxias do Sul, RS"><option value="Pelotas, RS"><option value="Canoas, RS"><option value="Santa Maria, RS"><option value="Gravataí, RS"><option value="Viamão, RS"><option value="Novo Hamburgo, RS"><option value="São Leopoldo, RS"><option value="Rio Grande, RS"><option value="Alvorada, RS"><option value="Passo Fundo, RS"><option value="Sapucaia do Sul, RS"><option value="Uruguaiana, RS"><option value="Santa Cruz do Sul, RS"><option value="Cachoeirinha, RS"><option value="Bagé, RS"><option value="Bento Gonçalves, RS"><option value="Erechim, RS"><option value="Guaíba, RS"><option value="Gramado, RS"><option value="Canela, RS"><option value="Torres, RS">
+      </datalist>
+    </div>
+
+    <div class="secao">
+      <div class="secao-titulo">🌍 Destino</div>
+      <label class="campo-label">Para onde você quer ir? *</label>
+      <input type="text" id="destino" placeholder="Digite o destino (ex: Paris, Cancún, Gramado...)" required>
+    </div>
+
+    <div class="secao">
+      <div class="secao-titulo">📅 Datas da Viagem</div>
+      <div class="grid2">
+        <div>
+          <label class="campo-label">Data de ida *</label>
+          <input type="date" id="dataIda" required>
+        </div>
+        <div>
+          <label class="campo-label">Data de volta *</label>
+          <input type="date" id="dataVolta" required>
+        </div>
+      </div>
+      <label class="flex-check">
+        <input type="checkbox" id="datasFlexiveis">
+        Datas flexíveis — posso viajar em outras datas se o preço for melhor
+      </label>
+    </div>
+
+    <div class="secao">
+      <div class="secao-titulo">👥 Passageiros</div>
+      <div class="stepper-row">
+        <div class="stepper-label">✈️ Adultos</div>
+        <div class="stepper">
+          <button type="button" onclick="alterar('adultos',-1)">−</button>
+          <span id="adultos">2</span>
+          <button type="button" onclick="alterar('adultos',1)">+</button>
+        </div>
+      </div>
+      <div class="stepper-row">
+        <div class="stepper-label">🧒 Crianças</div>
+        <div class="stepper">
+          <button type="button" onclick="alterar('criancas',-1)">−</button>
+          <span id="criancas">0</span>
+          <button type="button" onclick="alterar('criancas',1)">+</button>
+        </div>
+      </div>
+      <div id="idadesCriancasWrap"></div>
+    </div>
+
+    <div class="nav-passos">
+      <button type="button" class="btn-voltar" onclick="irParaPasso(1)">← Voltar</button>
+      <button type="button" class="btn-continuar" onclick="irParaPasso(3)">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 — PREFERÊNCIAS DA VIAGEM -->
+  <div class="form-step" data-step="3" hidden>
+
+    <div class="confirmacao" id="confirmacaoEnvio">✅ Recebido! Abrindo seu WhatsApp com a proposta...</div>
+
+    <div class="secao">
+      <div class="secao-titulo">🧳 Bagagem Despachada</div>
+      <div class="opcoes-grid" id="bagagemGrid">
+        <div class="opcao" data-valor="Só hand bag" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🎒</span>Só hand bag</div>
+        <div class="opcao selecionada" data-valor="1 mala (23kg)" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳</span>1 mala<small>(23kg)</small></div>
+        <div class="opcao" data-valor="2 malas" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳🧳</span>2 malas</div>
+        <div class="opcao" data-valor="Não sei" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🤔</span>Não sei</div>
       </div>
     </div>
-    <div class="stepper-row">
-      <div class="stepper-label">🧒 Crianças</div>
-      <div class="stepper">
-        <button type="button" onclick="alterar('criancas',-1)">−</button>
-        <span id="criancas">0</span>
-        <button type="button" onclick="alterar('criancas',1)">+</button>
+
+    <div class="secao">
+      <div class="secao-titulo">🏨 Acomodação</div>
+      <div class="stepper-row">
+        <div class="stepper-label">🚪 Quartos</div>
+        <div class="stepper">
+          <button type="button" onclick="alterar('quartos',-1)">−</button>
+          <span id="quartos">1</span>
+          <button type="button" onclick="alterar('quartos',1)">+</button>
+        </div>
+      </div>
+      <div id="quartosWrap"></div>
+    </div>
+
+    <div class="secao">
+      <div class="secao-titulo">💰 Orçamento Disponível</div>
+      <div class="slider-wrap">
+        <div class="slider-valor">R$ <span id="orcamentoValor">5.000</span></div>
+        <input type="range" id="orcamentoSlider" min="1000" max="51000" step="1000" value="5000" oninput="atualizarOrcamento(this.value)">
+        <div class="slider-marcas">
+          <span>R$ 1.000</span><span>R$ 10.000</span><span>R$ 25.000</span><span>R$ 50.000+</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="secao">
-    <div class="secao-titulo">🧳 Bagagem Despachada</div>
-    <div class="opcoes-grid" id="bagagemGrid">
-      <div class="opcao" data-valor="Só hand bag" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🎒</span>Só hand bag</div>
-      <div class="opcao selecionada" data-valor="1 mala (23kg)" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳</span>1 mala<small>(23kg)</small></div>
-      <div class="opcao" data-valor="2 malas" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🧳🧳</span>2 malas</div>
-      <div class="opcao" data-valor="Não sei" onclick="selecionarUnico(this,'bagagemGrid')"><span class="emoji">🤔</span>Não sei</div>
-    </div>
-  </div>
-
-  <div class="secao">
-    <div class="secao-titulo">🏨 Acomodação</div>
-    <div class="stepper-row">
-      <div class="stepper-label">🚪 Quartos</div>
-      <div class="stepper">
-        <button type="button" onclick="alterar('quartos',-1)">−</button>
-        <span id="quartos">1</span>
-        <button type="button" onclick="alterar('quartos',1)">+</button>
+    <div class="secao">
+      <div class="secao-titulo">⭐ O que você precisa?</div>
+      <div class="chips-grid" id="necessidadesGrid">
+        <div class="chip" data-valor="Traslado" onclick="toggleChip(this)">🚌 Traslado</div>
+        <div class="chip" data-valor="Seguro viagem" onclick="toggleChip(this)">🛡 Seguro viagem</div>
+        <div class="chip" data-valor="Passeios" onclick="toggleChip(this)">🗺 Passeios</div>
+        <div class="chip" data-valor="Parques" onclick="toggleChip(this)">🎢 Parques</div>
+        <div class="chip" data-valor="Chip internet" onclick="toggleChip(this)">📱 Chip internet</div>
+        <div class="chip" data-valor="Aluguel de carro" onclick="toggleChip(this)">🚗 Aluguel de carro</div>
+        <div class="chip" data-valor="Cruzeiro" onclick="toggleChip(this)">🚢 Cruzeiro</div>
+        <div class="chip" data-valor="Lua de mel" onclick="toggleChip(this)">💍 Lua de mel</div>
       </div>
     </div>
-    <label class="campo-label" style="margin-top:12px;">Tipo de cama preferida *</label>
-    <div class="opcoes-grid" id="camaGrid">
-      <div class="opcao selecionada" data-valor="Casal (1 cama de casal)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛏</span>Casal<small>1 cama de casal</small></div>
-      <div class="opcao" data-valor="Twin (2 camas de solteiro)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛏🛏</span>Twin<small>2 camas solteiro</small></div>
-      <div class="opcao" data-valor="Triplo (cama casal + solteiro)" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">🛌</span>Triplo<small>Cama casal + solteiro</small></div>
-      <div class="opcao" data-valor="Sem preferência" onclick="selecionarUnico(this,'camaGrid')"><span class="emoji">💤</span>Sem preferência<small>O melhor disponível</small></div>
+
+    <div class="secao">
+      <div class="secao-titulo">📝 Observações</div>
+      <label class="campo-label">Algum detalhe importante? (opcional)</label>
+      <textarea id="observacoes" placeholder="Ex: viagem de aniversário, precisamos de quarto com vista, crianças com 5 e 8 anos..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-enviar">Quero meu orçamento personalizado</button>
+    <p class="microcopy-confianca">🔒 Seus dados são usados só pra te enviar a proposta, sem spam. Resposta em até 24h, direto no seu WhatsApp.</p>
+
+    <div class="nav-passos" style="justify-content:center;margin-top:14px;">
+      <button type="button" class="btn-voltar" onclick="irParaPasso(2)">← Voltar</button>
     </div>
   </div>
 
-  <div class="secao">
-    <div class="secao-titulo">💰 Orçamento Disponível</div>
-    <div class="slider-wrap">
-      <div class="slider-valor">R$ <span id="orcamentoValor">5.000</span></div>
-      <input type="range" id="orcamentoSlider" min="1000" max="51000" step="1000" value="5000" oninput="atualizarOrcamento(this.value)">
-      <div class="slider-marcas">
-        <span>R$ 1.000</span><span>R$ 10.000</span><span>R$ 25.000</span><span>R$ 50.000+</span>
+  </form>
+  </div>
+
+  <div class="tab-painel" id="painelRoteiros" hidden>
+
+    <div class="roteiros-intro">
+      <span class="eyebrow">Expedições prontas</span>
+      <h3>Roteiros em grupo, saindo de Curitiba</h3>
+      <p>Bate-e-volta com tudo organizado — você só aproveita. Escolha um roteiro e entre na lista de espera; a gente te avisa assim que abrir a próxima data.</p>
+    </div>
+
+    <form id="formListaEspera">
+      <div class="confirmacao" id="confirmacaoListaEspera">✅ Recebido! Abrindo seu WhatsApp...</div>
+
+      <div class="roteiros-lista" id="roteiroGrid">
+        <div class="roteiro-card" data-valor="Caminho do Vinho" onclick="selecionarRoteiro(this)">
+          <div class="roteiro-nome">🍷 Caminho do Vinho</div>
+          <p class="roteiro-desc">Degustação em cantinas charmosas e almoço de massa artesanal, sem pressa. Bate-volta de Curitiba, aos fins de semana.</p>
+          <div class="roteiro-rodape">
+            <div class="roteiro-preco">R$ 350<span>por pessoa</span></div>
+            <div class="roteiro-check">✓</div>
+          </div>
+        </div>
+        <div class="roteiro-card" data-valor="Circuito Premium de Vinhos (Colombo)" onclick="selecionarRoteiro(this)">
+          <div class="roteiro-nome">🍇 Circuito Premium de Vinhos</div>
+          <p class="roteiro-desc">Cave subterrânea, vinhos premiados e parreiras centenárias — um dia inteiro dedicado aos melhores vinhos de Colombo.</p>
+          <div class="roteiro-rodape">
+            <div class="roteiro-preco">R$ 330<span>por pessoa</span></div>
+            <div class="roteiro-check">✓</div>
+          </div>
+        </div>
+        <div class="roteiro-card" data-valor="Ilha do Mel" onclick="selecionarRoteiro(this)">
+          <div class="roteiro-nome">🏝️ Ilha do Mel</div>
+          <p class="roteiro-desc">Gruta das Encantadas, farol com vista 360° e praias na costa paranaense — com almoço de frutos do mar incluso.</p>
+          <div class="roteiro-rodape">
+            <div class="roteiro-preco">R$ 350<span>por pessoa</span></div>
+            <div class="roteiro-check">✓</div>
+          </div>
+        </div>
+        <div class="roteiro-card" data-valor="Roteiro Histórico de Morretes" onclick="selecionarRoteiro(this)">
+          <div class="roteiro-nome">🏘️ Morretes</div>
+          <p class="roteiro-desc">Estrada da Graciosa, centro histórico à beira-rio e barreado completo — um clássico paranaense de fim de semana.</p>
+          <div class="roteiro-rodape">
+            <div class="roteiro-preco">R$ 300<span>por pessoa</span></div>
+            <div class="roteiro-check">✓</div>
+          </div>
+        </div>
+        <div class="roteiro-card" data-valor="Rota dos Sabores da Colônia Witmarsum" onclick="selecionarRoteiro(this)">
+          <div class="roteiro-nome">💐 Colônia Witmarsum</div>
+          <p class="roteiro-desc">Lavanda, queijos coloniais, café especial, chocolate bean-to-bar e biergarten — um dia delicioso com as amigas.</p>
+          <div class="roteiro-rodape">
+            <div class="roteiro-preco">R$ 350<span>por pessoa</span></div>
+            <div class="roteiro-check">✓</div>
+          </div>
+        </div>
       </div>
+      <div class="campo-erro-msg" id="roteiroGridErroMsg">Escolha um roteiro.</div>
+
+      <div class="secao" style="margin-top:20px;">
+        <div class="secao-titulo">👤 Seus Dados</div>
+        <div class="grid2">
+          <div>
+            <label class="campo-label">Nome completo *</label>
+            <input type="text" id="listaNome" placeholder="Seu nome" required>
+          </div>
+          <div>
+            <label class="campo-label">WhatsApp *</label>
+            <input type="tel" id="listaWhatsapp" placeholder="(00) 90000-0000" inputmode="tel" required>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-enviar">Entrar na lista de espera</button>
+      <p class="microcopy-confianca">🔒 A gente te avisa por WhatsApp assim que abrir a próxima data desse roteiro.</p>
+    </form>
+
+  </div>
+
+  <div class="tab-painel" id="painelChat" hidden>
+    <div class="roteiros-intro">
+      <span class="eyebrow">Responda rapidinho</span>
+      <h3>Me conta em 5 perguntinhas</h3>
+      <p>Sem formulário, sem passo a passo — só vai respondendo aqui embaixo que eu já preparo tudo pro seu orçamento.</p>
     </div>
+
+    <div class="chat-janela" id="chatJanela"></div>
+
+    <form id="chatForm" class="chat-form">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Digite sua resposta..." autocomplete="off">
+      <button type="submit" class="chat-enviar" aria-label="Enviar">➤</button>
+    </form>
   </div>
 
-  <div class="secao">
-    <div class="secao-titulo">⭐ O que você precisa?</div>
-    <div class="chips-grid" id="necessidadesGrid">
-      <div class="chip" data-valor="Traslado" onclick="toggleChip(this)">🚌 Traslado</div>
-      <div class="chip" data-valor="Seguro viagem" onclick="toggleChip(this)">🛡 Seguro viagem</div>
-      <div class="chip" data-valor="Passeios" onclick="toggleChip(this)">🗺 Passeios</div>
-      <div class="chip" data-valor="Parques" onclick="toggleChip(this)">🎢 Parques</div>
-      <div class="chip" data-valor="Chip internet" onclick="toggleChip(this)">📱 Chip internet</div>
-      <div class="chip" data-valor="Aluguel de carro" onclick="toggleChip(this)">🚗 Aluguel de carro</div>
-      <div class="chip" data-valor="Cruzeiro" onclick="toggleChip(this)">🚢 Cruzeiro</div>
-      <div class="chip" data-valor="Lua de mel" onclick="toggleChip(this)">💍 Lua de mel</div>
-    </div>
-  </div>
-
-  <div class="secao">
-    <div class="secao-titulo">📝 Observações</div>
-    <label class="campo-label">Algum detalhe importante? (opcional)</label>
-    <textarea id="observacoes" placeholder="Ex: viagem de aniversário, precisamos de quarto com vista, crianças com 5 e 8 anos..."></textarea>
-  </div>
-
-  <button type="submit" class="btn-enviar">ENVIAR PARA A ARP TRAVEL</button>
-</form>
+</div>
+</div>
 
 <p class="aviso">Ao enviar, você concorda em ser contatado pela ARP Travel via WhatsApp para receber seu orçamento personalizado.</p>
-<p class="rodape">www.arptravel.com.br &nbsp;|&nbsp; @arptravel &nbsp;|&nbsp; (41) 99917-4720</p>
+
+<!-- COMO FUNCIONA -->
+<section class="como-funciona">
+  <div class="wrap-secao">
+    <span class="eyebrow">Simples assim</span>
+    <h2 class="sec-titulo">Como funciona</h2>
+    <div class="passos-grid">
+      <div class="passo-item">
+        <div class="passo-num">1</div>
+        <div><h4>Você conta o que sonha em viver</h4><p>Destino, datas, quantas pessoas — leva 2 minutos pra preencher.</p></div>
+      </div>
+      <div class="passo-item">
+        <div class="passo-num">2</div>
+        <div><h4>A gente monta as melhores opções</h4><p>Com olhar técnico e cuidado humano, cruzamos voos, hospedagem e experiências.</p></div>
+      </div>
+      <div class="passo-item">
+        <div class="passo-num">3</div>
+        <div><h4>Você recebe um roteiro pronto</h4><p>Direto no seu WhatsApp, em até 24h. Só chegar e viver a viagem.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVAS SOCIAIS -->
+<section class="provas">
+  <div class="wrap-secao">
+    <span class="eyebrow">Quem viajou com a ARP</span>
+    <h2 class="sec-titulo">A confiança de chegar e viver</h2>
+    <div class="google-badge">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>
+      <span><b>5,0</b> · Avaliações do Google</span>
+    </div>
+    <div class="depoimentos">
+      <div class="depoimento">
+        <div class="estrelas">★★★★★</div>
+        <p>"Quero deixar registrado o quanto ficamos satisfeitos! Desde o primeiro contato até o retorno, fomos super bem atendidos. Tudo organizado com excelência, cuidado e sem preocupações. Recomendo de olhos fechados!"</p>
+        <div class="who">Yohana Pickler<span>Roteiro personalizado</span></div>
+      </div>
+      <div class="depoimento">
+        <div class="estrelas">★★★★★</div>
+        <p>"A gente amou a experiência! O atendimento foi muito diferenciado do começo ao fim, e o Raphael teve toda paciência e atenção para tirar nossas dúvidas. Isso fez toda diferença pra viagem ser confortável e organizada."</p>
+        <div class="who">Luara Beltrame<span>Viagem para Pipa</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="wrap-secao">
+    <h3>Ainda não pediu seu orçamento?</h3>
+    <p>Leva só 2 minutos — e você não paga nada por isso.</p>
+    <a href="#formOrcamento" class="btn-final" onclick="trocarTab('orcamento');document.getElementById('formOrcamento').scrollIntoView({behavior:'smooth'});return false;">Quero meu orçamento →</a>
+  </div>
+</section>
+
+<footer class="rodape">
+  <a href="https://arptravel.com.br" aria-label="ARP Travel">
+    <img class="rodape-logo" src="https://arptravel.com.br/logo-branca.png" alt="ARP Travel">
+  </a>
+  <p>Agência de viagens em Curitiba. Roteiros personalizados e expedições em grupo com tudo resolvido — você só chega e vive.</p>
+  <div class="rodape-links">
+    <a href="https://wa.me/5541999174720" target="_blank" rel="noopener">📱 (41) 99917-4720</a>
+    <a href="https://instagram.com/arptravel" target="_blank" rel="noopener">📷 @arptravel</a>
+    <a href="https://arptravel.com.br">🌐 www.arptravel.com.br</a>
+  </div>
+  <div class="rodape-bottom">© 2026 ARP Travel · Curitiba · Brasil</div>
+</footer>
+
+<a href="https://wa.me/5541999174720" target="_blank" rel="noopener" class="float-wa" aria-label="Falar no WhatsApp"><svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.93 4 4.96 8.97 4.96 15.08c0 1.96.51 3.87 1.49 5.56L4.86 28l7.55-1.97a11.03 11.03 0 0 0 3.63.61h.01c6.11 0 11.08-4.97 11.08-11.08 0-2.96-1.15-5.74-3.25-7.83A11 11 0 0 0 16.04 4zm0 2.02c2.42 0 4.69.94 6.4 2.65a8.98 8.98 0 0 1 2.65 6.41c0 5-4.06 9.06-9.07 9.06-1.12 0-2.22-.21-3.25-.61l-.4-.16-3.96 1.04 1.05-3.86-.18-.41a9.02 9.02 0 0 1-1.39-4.81c0-5 4.07-9.06 9.07-9.06zm-4.96 4.86c-.23 0-.6.09-.92.43-.31.34-1.2 1.17-1.2 2.85s1.23 3.31 1.4 3.54c.17.23 2.42 3.69 5.86 5.04 2.86 1.13 3.44.9 4.07.85.62-.06 2.01-.82 2.29-1.62.28-.79.28-1.47.2-1.62-.09-.14-.31-.23-.65-.4-.34-.17-2.01-.99-2.32-1.11-.31-.11-.54-.17-.77.17-.22.34-.88 1.11-1.08 1.34-.2.23-.4.26-.74.09-.34-.17-1.43-.53-2.73-1.68a10.2 10.2 0 0 1-1.89-2.35c-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.23.06-.43-.03-.6-.08-.17-.75-1.86-1.06-2.54-.26-.58-.53-.59-.77-.6l-.66-.01z"/></svg></a>
+
+<div class="cta-sticky">
+  <a href="#formOrcamento" onclick="trocarTab('orcamento');document.getElementById('formOrcamento').scrollIntoView({behavior:'smooth'});return false;">Quero meu orçamento →</a>
+</div>
 
 <script>
   const estado = { adultos:2, criancas:0, quartos:1 };
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySnKG6wxEU0s8K3sCiQRFogHs9tvC0d9kGSBfkoyLKwVOYZT6xwO7a-KCVednBa4E/exec';
 
+  /* ---------- NAVEGAÇÃO ENTRE ETAPAS ---------- */
+  function mostrarPasso(n){
+    document.querySelectorAll('.form-step').forEach(s => { s.hidden = parseInt(s.dataset.step) !== n; });
+    atualizarProgresso(n);
+  }
+
+  /* ---------- CAPTURA PARCIAL (nome+WhatsApp assim que a etapa 1 é concluída) ----------
+     Vai pra mesma planilha, com Destino/demais campos vazios — o resto do formulário
+     preenche essas colunas depois, no envio final. Como o Destino fica vazio, essa linha
+     não conta como lead "completo" (a sincronização do dashboard ignora linhas sem Destino),
+     então só entra de fato no dashboard quando a pessoa terminar as 3 etapas. */
+  let capturaParcialEnviada = false;
+  function enviarCapturaParcial(){
+    if(capturaParcialEnviada) return;
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    if(!nome || !whatsapp) return;
+
+    const payload = JSON.stringify({
+      nome: nome,
+      whatsapp: whatsapp,
+      cidadePartida: '',
+      destino: '',
+      dataIda: '',
+      dataVolta: '',
+      datasFlexiveis: '',
+      adultos: '',
+      criancas: '',
+      idadesCriancas: '',
+      bagagem: '',
+      quartos: '',
+      tipoCama: '',
+      orcamento: '',
+      necessidades: '',
+      observacoes: '⏳ Captura parcial — cliente preencheu nome/WhatsApp mas ainda não finalizou o formulário.',
+      origem: ''
+    });
+
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'text/plain' },
+      body: payload
+    }).catch(() => {});
+    capturaParcialEnviada = true;
+  }
+
+  /* ---------- ABAS: Orçamento personalizado x Roteiros prontos ---------- */
+  function trocarTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('ativo', b.dataset.tab === tab));
+    document.getElementById('painelOrcamento').hidden = tab !== 'orcamento';
+    document.getElementById('painelRoteiros').hidden = tab !== 'roteiros';
+    document.getElementById('painelChat').hidden = tab !== 'chat';
+    if (tab === 'chat') iniciarChat();
+  }
+
+  /* ---------- CHAT RÁPIDO (bot de perguntas fixas, sem IA — grátis; já entra qualificado no pipeline) ---------- */
+  const CHAT_PERGUNTAS = [
+    { campo: 'nome', texto: () => 'Oi! 😊 Pra começar, qual é o seu nome?', validar: v => v.trim().length >= 2, erro: 'Me diz seu nome completo, por favor 🙂' },
+    { campo: 'whatsapp', texto: e => `Prazer, ${chatPrimeiroNome(e.nome)}! Qual é o seu WhatsApp com DDD?`, validar: v => v.replace(/\D/g, '').length >= 10, erro: 'Esse número não parece completo — inclui o DDD, por favor.' },
+    { campo: 'destino', texto: () => 'Pra onde você quer viajar?', validar: v => v.trim().length >= 2, erro: 'Me conta o destino que você tem em mente 🌎' },
+    { campo: 'quando', texto: () => 'Quando? Pode ser uma data certa ou só o mês (ex: "10 a 20 de dezembro" ou "em janeiro")', validar: v => v.trim().length >= 2, erro: 'Me dá uma ideia de quando, mesmo que aproximada 📅' },
+    { campo: 'pessoas', texto: () => 'Quantas pessoas vão nessa viagem?', validar: v => /\d/.test(v), erro: 'Só o número de pessoas, por favor (ex: 2)' },
+    { campo: 'orcamento', texto: () => 'Última: qual faixa de orçamento você imagina pra essa viagem?', validar: v => v.trim().length >= 1, erro: 'Me dá uma faixa de valor, mesmo aproximada 💰' },
+  ];
+  let chatEstado = {};
+  let chatPasso = 0;
+  let chatIniciado = false;
+  let chatFinalizado = false;
+
+  function chatPrimeiroNome(nome){
+    return (nome || '').trim().split(/\s+/)[0];
+  }
+  function chatAddBolha(texto, tipo){
+    const janela = document.getElementById('chatJanela');
+    const div = document.createElement('div');
+    div.className = 'chat-bolha ' + tipo;
+    div.textContent = texto;
+    janela.appendChild(div);
+    janela.scrollTop = janela.scrollHeight;
+  }
+  function chatPerguntar(){
+    if (chatPasso >= CHAT_PERGUNTAS.length){
+      chatFinalizarConversa();
+      return;
+    }
+    chatAddBolha(CHAT_PERGUNTAS[chatPasso].texto(chatEstado), 'bot');
+  }
+  function iniciarChat(){
+    if (chatIniciado) return;
+    chatIniciado = true;
+    chatPerguntar();
+  }
+  function chatFinalizarConversa(){
+    chatFinalizado = true;
+    document.getElementById('chatInput').disabled = true;
+    document.querySelector('#chatForm .chat-enviar').disabled = true;
+    chatAddBolha(`Perfeito, ${chatPrimeiroNome(chatEstado.nome)}! 🙌 Já anotei tudo — a ARP Travel vai te chamar no WhatsApp com as opções.`, 'bot');
+
+    const orcamentoNum = (chatEstado.orcamento.match(/[\d.,]+/g) || [])
+      .map(s => parseFloat(s.replace(/\./g, '').replace(',', '.')))
+      .filter(n => !isNaN(n))
+      .reduce((max, n) => Math.max(max, n), 0);
+
+    const payload = JSON.stringify({
+      nome: chatEstado.nome,
+      whatsapp: chatEstado.whatsapp,
+      cidadePartida: '',
+      destino: chatEstado.destino,
+      dataIda: '',
+      dataVolta: '',
+      datasFlexiveis: 'Sim',
+      adultos: parseInt((chatEstado.pessoas.match(/\d+/) || ['0'])[0]) || 0,
+      criancas: '',
+      idadesCriancas: '',
+      bagagem: '',
+      quartos: '',
+      tipoCama: '',
+      orcamento: orcamentoNum || 0,
+      necessidades: '',
+      observacoes: `✅ Qualificado via Chat rápido do site — quando: "${chatEstado.quando}"; orçamento informado: "${chatEstado.orcamento}".`,
+      origem: ''
+    });
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(SHEETS_URL, new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload }).catch(() => {});
+    }
+
+    let msg = `Olá, ARP Travel! Acabei de responder o chat rápido do site 🙌\n\n`;
+    msg += `*Nome:* ${chatEstado.nome}\n`;
+    msg += `*WhatsApp:* ${chatEstado.whatsapp}\n`;
+    msg += `*Destino:* ${chatEstado.destino}\n`;
+    msg += `*Quando:* ${chatEstado.quando}\n`;
+    msg += `*Pessoas:* ${chatEstado.pessoas}\n`;
+    msg += `*Orçamento:* ${chatEstado.orcamento}\n\n`;
+    msg += `Aguardo o contato, obrigado(a)!`;
+
+    setTimeout(() => {
+      window.open(`https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`, '_blank');
+    }, 900);
+  }
+  document.getElementById('chatForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (chatFinalizado) return;
+    const input = document.getElementById('chatInput');
+    const valor = input.value.trim();
+    if (!valor) return;
+
+    chatAddBolha(valor, 'usuario');
+    input.value = '';
+
+    const p = CHAT_PERGUNTAS[chatPasso];
+    if (!p.validar(valor)){
+      chatAddBolha(p.erro, 'erro');
+      return;
+    }
+    chatEstado[p.campo] = valor;
+    chatPasso++;
+    setTimeout(chatPerguntar, 350);
+  });
+
+  function selecionarRoteiro(el){
+    document.querySelectorAll('#roteiroGrid .roteiro-card').forEach(c => c.classList.remove('selecionada'));
+    el.classList.add('selecionada');
+    document.getElementById('roteiroGrid').classList.remove('erro');
+    const msgErro = document.getElementById('roteiroGridErroMsg');
+    if(msgErro) msgErro.style.display = 'none';
+  }
+
+  function atualizarProgresso(n){
+    document.querySelectorAll('.passo-dot').forEach(dot => {
+      const num = parseInt(dot.dataset.passo);
+      dot.classList.remove('ativo','concluido');
+      if(num < n) dot.classList.add('concluido');
+      else if(num === n) dot.classList.add('ativo');
+    });
+    document.querySelectorAll('.passo-linha').forEach((linha, idx) => {
+      linha.classList.toggle('concluido', (idx + 1) < n);
+    });
+    const labels = {
+      1: 'Etapa 1 de 3 — Seus dados',
+      2: 'Etapa 2 de 3 — Sobre sua viagem',
+      3: 'Etapa 3 de 3 — Preferências da viagem'
+    };
+    document.getElementById('progressoLabel').textContent = labels[n];
+  }
+
+  function irParaPasso(destino, opts){
+    opts = opts || {};
+    const atualEl = document.querySelector('.form-step:not([hidden])');
+    const atualNum = atualEl ? parseInt(atualEl.dataset.step) : 1;
+    if(destino > atualNum && !opts.pularValidacao){
+      if(!validarPasso(atualNum)) return;
+    }
+    if(atualNum === 1 && destino > 1){
+      enviarCapturaParcial();
+    }
+    mostrarPasso(destino);
+    document.getElementById('formOrcamento').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ---------- PASSAGEIROS / QUARTOS ---------- */
   function alterar(campo, delta){
     let min = campo === 'adultos' ? 1 : (campo === 'quartos' ? 1 : 0);
     estado[campo] = Math.max(min, estado[campo] + delta);
     document.getElementById(campo).textContent = estado[campo];
+    if(campo === 'criancas') renderIdadesCriancas();
+    if(campo === 'quartos') renderQuartosCama();
+  }
+
+  const OPCOES_CAMA = [
+    {valor:'Casal (1 cama de casal)', emoji:'🛏', nome:'Casal', desc:'1 cama de casal'},
+    {valor:'Twin (2 camas de solteiro)', emoji:'🛏🛏', nome:'Twin', desc:'2 camas solteiro'},
+    {valor:'Triplo (cama casal + solteiro)', emoji:'🛌', nome:'Triplo', desc:'Cama casal + solteiro'},
+    {valor:'Sem preferência', emoji:'💤', nome:'Sem preferência', desc:'O melhor disponível'}
+  ];
+
+  function renderQuartosCama(){
+    const wrap = document.getElementById('quartosWrap');
+    const valoresAtuais = Array.from(wrap.querySelectorAll('.quarto-bloco')).map(bloco => {
+      const sel = bloco.querySelector('.opcao.selecionada');
+      return sel ? sel.dataset.valor : null;
+    });
+
+    let html = '';
+    for(let i = 0; i < estado.quartos; i++){
+      const gridId = 'camaGrid' + (i + 1);
+      const valorAtual = valoresAtuais[i] || OPCOES_CAMA[0].valor;
+      html += `<div class="quarto-bloco">
+        <label class="campo-label">${estado.quartos > 1 ? 'Quarto ' + (i+1) + ' — ' : ''}Tipo de cama preferida *</label>
+        <div class="opcoes-grid" id="${gridId}">`;
+      OPCOES_CAMA.forEach(op => {
+        const sel = op.valor === valorAtual ? ' selecionada' : '';
+        html += `<div class="opcao${sel}" data-valor="${op.valor}" onclick="selecionarUnico(this,'${gridId}')"><span class="emoji">${op.emoji}</span>${op.nome}<small>${op.desc}</small></div>`;
+      });
+      html += `</div>
+        <div class="campo-erro-msg" id="${gridId}ErroMsg">Selecione o tipo de cama.</div>
+      </div>`;
+    }
+    wrap.innerHTML = html;
+  }
+  renderQuartosCama();
+
+  function renderIdadesCriancas(){
+    const wrap = document.getElementById('idadesCriancasWrap');
+    const valoresAtuais = Array.from(wrap.querySelectorAll('.idade-crianca')).map(i => i.value);
+    let html = '';
+    if(estado.criancas > 0){
+      html += '<div class="idades-wrap">';
+      for(let i = 0; i < estado.criancas; i++){
+        const val = valoresAtuais[i] || '';
+        html += `<div><label class="campo-label">Idade da criança ${i+1} *</label><input type="number" class="idade-crianca" min="0" max="17" placeholder="Anos" inputmode="numeric" value="${val}"></div>`;
+      }
+      html += '</div>';
+    }
+    wrap.innerHTML = html;
   }
 
   function selecionarUnico(el, grupoId){
@@ -458,6 +1393,61 @@
     input.addEventListener('input', () => input.classList.remove('erro'), {once:true});
   }
 
+  /* ---------- VALIDAÇÃO INLINE (por etapa, sem alert) ---------- */
+  function validarPasso(n){
+    let valido = true;
+
+    if(n === 1){
+      const nome = document.getElementById('nome');
+      const whatsapp = document.getElementById('whatsapp');
+      [nome, whatsapp].forEach(campo => {
+        if(!campo.value.trim()){ marcarErro(campo); valido = false; }
+      });
+    }
+
+    if(n === 2){
+      const cidadePartida = document.getElementById('cidadePartida');
+      const destino = document.getElementById('destino');
+      const dataIda = document.getElementById('dataIda');
+      const dataVolta = document.getElementById('dataVolta');
+      [cidadePartida, destino, dataIda, dataVolta].forEach(campo => {
+        if(!campo.value.trim()){ marcarErro(campo); valido = false; }
+      });
+      const origemEl = document.querySelector('#origemGrid .selecionada');
+      if(!origemEl){
+        document.getElementById('origemGrid').classList.add('erro');
+        document.getElementById('origemGridErroMsg').style.display = 'block';
+        valido = false;
+      }
+      const camposIdades = Array.from(document.querySelectorAll('.idade-crianca'));
+      camposIdades.forEach(campo => {
+        if(!campo.value.trim()){ marcarErro(campo); valido = false; }
+      });
+    }
+
+    if(n === 3){
+      document.querySelectorAll('#quartosWrap .quarto-bloco').forEach(bloco => {
+        const grid = bloco.querySelector('.opcoes-grid');
+        const sel = grid.querySelector('.opcao.selecionada');
+        if(!sel){
+          grid.classList.add('erro');
+          const msgErro = document.getElementById(grid.id + 'ErroMsg');
+          if(msgErro) msgErro.style.display = 'block';
+          valido = false;
+        }
+      });
+    }
+
+    if(!valido){
+      const passoAtivo = document.querySelector(`.form-step[data-step="${n}"]`);
+      const primeiroErro = passoAtivo.querySelector('input.erro, .opcoes-grid.erro');
+      if(primeiroErro) primeiroErro.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    return valido;
+  }
+
+  /* ---------- RESET ---------- */
   function resetarFormulario(){
     document.getElementById('formOrcamento').reset();
 
@@ -467,12 +1457,12 @@
     document.getElementById('adultos').textContent = estado.adultos;
     document.getElementById('criancas').textContent = estado.criancas;
     document.getElementById('quartos').textContent = estado.quartos;
+    document.getElementById('idadesCriancasWrap').innerHTML = '';
 
     document.querySelectorAll('#bagagemGrid .opcao').forEach(o => o.classList.remove('selecionada'));
     document.querySelector('#bagagemGrid .opcao[data-valor="1 mala (23kg)"]')?.classList.add('selecionada');
 
-    document.querySelectorAll('#camaGrid .opcao').forEach(o => o.classList.remove('selecionada'));
-    document.querySelector('#camaGrid .opcao[data-valor="Casal (1 cama de casal)"]')?.classList.add('selecionada');
+    renderQuartosCama();
 
     document.querySelectorAll('#origemGrid .opcao').forEach(o => o.classList.remove('selecionada'));
     document.getElementById('origemGrid').classList.remove('erro');
@@ -484,43 +1474,44 @@
     atualizarOrcamento(5000);
 
     document.querySelectorAll('input.erro, textarea.erro').forEach(el => el.classList.remove('erro'));
+    document.querySelectorAll('.opcoes-grid.erro').forEach(el => el.classList.remove('erro'));
 
+    document.getElementById('confirmacaoEnvio').classList.remove('mostrar');
+    capturaParcialEnviada = false;
+
+    mostrarPasso(1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ---------- ENVIO ---------- */
   document.getElementById('formOrcamento').addEventListener('submit', function(e){
     e.preventDefault();
 
+    if(!validarPasso(1)){ irParaPasso(1, {pularValidacao:true}); return; }
+    if(!validarPasso(2)){ irParaPasso(2, {pularValidacao:true}); return; }
+    if(!validarPasso(3)){ return; }
+
     const nome = document.getElementById('nome');
     const whatsapp = document.getElementById('whatsapp');
+    const cidadePartida = document.getElementById('cidadePartida');
     const destino = document.getElementById('destino');
     const dataIda = document.getElementById('dataIda');
     const dataVolta = document.getElementById('dataVolta');
 
-    let valido = true;
-    [nome, whatsapp, destino, dataIda, dataVolta].forEach(campo => {
-      if(!campo.value.trim()){ marcarErro(campo); valido = false; }
-    });
-
     const origemEl = document.querySelector('#origemGrid .selecionada');
-    if(!origemEl){
-      document.getElementById('origemGrid').classList.add('erro');
-      document.getElementById('origemGridErroMsg').style.display = 'block';
-      valido = false;
-    }
-
-    if(!valido){
-      alert('Por favor, preencha todos os campos obrigatórios (*) antes de enviar.');
-      return;
-    }
-
     const origem = origemEl.dataset.valor;
     const bagagem = document.querySelector('#bagagemGrid .selecionada')?.dataset.valor || 'Não informado';
-    const cama = document.querySelector('#camaGrid .selecionada')?.dataset.valor || 'Não informado';
     const necessidades = Array.from(document.querySelectorAll('#necessidadesGrid .selecionada')).map(c => c.dataset.valor);
+    const idadesCriancas = Array.from(document.querySelectorAll('.idade-crianca')).map(i => i.value.trim());
     const flexiveis = document.getElementById('datasFlexiveis').checked ? 'Sim' : 'Não';
     const orcamento = document.getElementById('orcamentoValor').textContent;
     const observacoes = document.getElementById('observacoes').value.trim();
+
+    const camasSelecionadas = [];
+    document.querySelectorAll('#quartosWrap .quarto-bloco').forEach((bloco, idx) => {
+      const sel = bloco.querySelector('.opcao.selecionada');
+      if(sel) camasSelecionadas.push({ quarto: idx + 1, valor: sel.dataset.valor });
+    });
 
     const formatarData = (input) => {
       if(!input.value) return '';
@@ -532,15 +1523,24 @@
     msg += `*Nome:* ${nome.value.trim()}\n`;
     msg += `*WhatsApp:* ${whatsapp.value.trim()}\n`;
     msg += `*Como conheceu a ARP Travel:* ${origem}\n\n`;
+    msg += `*Cidade de partida:* ${cidadePartida.value.trim()}\n`;
     msg += `*Destino:* ${destino.value.trim()}\n`;
     msg += `*Data de ida:* ${formatarData(dataIda)}\n`;
     msg += `*Data de volta:* ${formatarData(dataVolta)}\n`;
     msg += `*Datas flexíveis:* ${flexiveis}\n\n`;
     msg += `*Adultos:* ${estado.adultos}\n`;
-    msg += `*Crianças:* ${estado.criancas}\n`;
+    msg += `*Crianças:* ${estado.criancas}`;
+    if(idadesCriancas.length) msg += ` (idades: ${idadesCriancas.join(', ')} anos)`;
+    msg += `\n`;
     msg += `*Bagagem despachada:* ${bagagem}\n\n`;
     msg += `*Quartos:* ${estado.quartos}\n`;
-    msg += `*Tipo de cama:* ${cama}\n\n`;
+    if(camasSelecionadas.length === 1){
+      msg += `*Tipo de cama:* ${camasSelecionadas[0].valor}\n\n`;
+    } else {
+      msg += `*Tipo de cama por quarto:*\n`;
+      camasSelecionadas.forEach(c => { msg += `- Quarto ${c.quarto}: ${c.valor}\n`; });
+      msg += `\n`;
+    }
     msg += `*Orçamento disponível:* R$ ${orcamento}\n\n`;
     if(necessidades.length){
       msg += `*O que preciso:* ${necessidades.join(', ')}\n\n`;
@@ -550,40 +1550,137 @@
     }
     msg += `Aguardo o contato, obrigado(a)!`;
 
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySnKG6wxEU0s8K3sCiQRFogHs9tvC0d9kGSBfkoyLKwVOYZT6xwO7a-KCVednBa4E/exec';
     const payload = JSON.stringify({
       nome: nome.value.trim(),
       whatsapp: whatsapp.value.trim(),
+      cidadePartida: cidadePartida.value.trim(),
       destino: destino.value.trim(),
       dataIda: formatarData(dataIda),
       dataVolta: formatarData(dataVolta),
       datasFlexiveis: flexiveis,
       adultos: estado.adultos,
       criancas: estado.criancas,
+      idadesCriancas: idadesCriancas.join(', '),
       bagagem: bagagem,
       quartos: estado.quartos,
-      tipoCama: cama,
+      tipoCama: camasSelecionadas.map(c => `Quarto ${c.quarto}: ${c.valor}`).join(' | '),
       orcamento: orcamento,
       necessidades: necessidades.join(', '),
       observacoes: observacoes,
       origem: origem
     });
     // sendBeacon garante que o envio chega mesmo se o usuário sair da página logo em seguida
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(SHEETS_URL, new Blob([payload], { type: 'text/plain' }));
-    } else {
-      fetch(SHEETS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: payload
-      }).catch(() => {});
-    }
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'text/plain' },
+      body: payload
+    }).catch(() => {});
+
+    document.getElementById('confirmacaoEnvio').classList.add('mostrar');
 
     const url = `https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
 
-    resetarFormulario();
+    setTimeout(resetarFormulario, 1200);
+  });
+
+  /* ---------- ENVIO — LISTA DE ESPERA DE ROTEIROS ---------- */
+  document.getElementById('formListaEspera').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const nome = document.getElementById('listaNome');
+    const whatsapp = document.getElementById('listaWhatsapp');
+
+    let valido = true;
+    [nome, whatsapp].forEach(campo => {
+      if(!campo.value.trim()){ marcarErro(campo); valido = false; }
+    });
+
+    const roteiroEl = document.querySelector('#roteiroGrid .roteiro-card.selecionada');
+    if(!roteiroEl){
+      document.getElementById('roteiroGrid').classList.add('erro');
+      document.getElementById('roteiroGridErroMsg').style.display = 'block';
+      valido = false;
+    }
+
+    if(!valido) return;
+
+    const roteiro = roteiroEl.dataset.valor;
+
+    const payload = JSON.stringify({
+      nome: nome.value.trim(),
+      whatsapp: whatsapp.value.trim(),
+      cidadePartida: '',
+      destino: 'Roteiro: ' + roteiro,
+      dataIda: '',
+      dataVolta: '',
+      datasFlexiveis: '',
+      adultos: '',
+      criancas: '',
+      idadesCriancas: '',
+      bagagem: '',
+      quartos: '',
+      tipoCama: '',
+      orcamento: '',
+      necessidades: '',
+      observacoes: '📋 Lista de espera de roteiro pronto (expedição em grupo).',
+      origem: ''
+    });
+
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'text/plain' },
+      body: payload
+    }).catch(() => {});
+
+    let msg = `Olá, ARP Travel! Quero entrar na lista de espera de um roteiro 🗺️\n\n`;
+    msg += `*Nome:* ${nome.value.trim()}\n`;
+    msg += `*WhatsApp:* ${whatsapp.value.trim()}\n`;
+    msg += `*Roteiro escolhido:* ${roteiro}\n\n`;
+    msg += `Aguardo mais informações, obrigado(a)!`;
+
+    document.getElementById('confirmacaoListaEspera').classList.add('mostrar');
+
+    const url = `https://wa.me/5541999174720?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+
+    setTimeout(() => {
+      document.getElementById('formListaEspera').reset();
+      document.querySelectorAll('#roteiroGrid .roteiro-card').forEach(c => c.classList.remove('selecionada'));
+      document.getElementById('roteiroGrid').classList.remove('erro');
+      document.getElementById('roteiroGridErroMsg').style.display = 'none';
+      document.querySelectorAll('#formListaEspera input.erro').forEach(el => el.classList.remove('erro'));
+      document.getElementById('confirmacaoListaEspera').classList.remove('mostrar');
+    }, 1200);
+  });
+
+  ['dataIda','dataVolta'].forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener('click', () => {
+      if(input.showPicker){
+        try { input.showPicker(); } catch(e) {}
+      }
+    });
+  });
+
+  /* Ao escolher a data de ida, a data de volta já pula direto pra ela — assim o calendário
+     abre nesse mesmo mês em vez de começar do mês atual, e o usuário só ajusta pra frente. */
+  document.getElementById('dataIda').addEventListener('change', function(){
+    document.getElementById('dataVolta').value = this.value;
+  });
+
+  /* impede que Enter num campo das etapas 1-2 dispare o submit antes da hora */
+  document.getElementById('formOrcamento').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA'){
+      const passoAtivo = document.querySelector('.form-step:not([hidden])');
+      if(passoAtivo && passoAtivo.dataset.step !== '3'){
+        e.preventDefault();
+      }
+    }
   });
 </script>
 
