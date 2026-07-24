@@ -1209,8 +1209,14 @@
     document.querySelector('#chatForm .chat-enviar').disabled = true;
     chatAddBolha(`Perfeito, ${chatPrimeiroNome(chatEstado.nome)}! 🙌 Já anotei tudo — a ARP Travel vai te chamar no WhatsApp com as opções.`, 'bot');
 
-    const orcamentoNum = (chatEstado.orcamento.match(/[\d.,]+/g) || [])
-      .map(s => parseFloat(s.replace(/\./g, '').replace(',', '.')))
+    // Extrai o maior valor numérico do texto livre, tratando "mil"/"k" como multiplicador de milhar
+    // (ex: "5 mil" ou "5k" -> 5000; "R$ 8.000" -> 8000; "entre 5 e 8 mil" -> 8000).
+    const orcamentoNum = [...chatEstado.orcamento.toLowerCase().matchAll(/(\d+(?:[.,]\d+)?)\s*(mil|k)?/g)]
+      .map(m => {
+        let n = parseFloat(m[1].replace(/\./g, '').replace(',', '.'));
+        if (!isNaN(n) && m[2]) n *= 1000;
+        return n;
+      })
       .filter(n => !isNaN(n))
       .reduce((max, n) => Math.max(max, n), 0);
 
